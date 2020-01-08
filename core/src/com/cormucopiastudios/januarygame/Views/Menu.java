@@ -33,7 +33,9 @@ public class Menu implements Screen {
         table.setDebug(true);
         stage.addActor(table);
 
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+//        skin = new Skin(Gdx.files.internal("skin/glassyui/glassy-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
+//        skin = new Skin(Gdx.files.internal("skin/neutralizer/neutralizer-ui.json"));
 
         // create and add buttons
         TextButton newGame = new TextButton("New Game", skin);

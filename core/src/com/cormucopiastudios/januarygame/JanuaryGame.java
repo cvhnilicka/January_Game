@@ -10,8 +10,7 @@ import com.cormucopiastudios.januarygame.Views.LoadingScreen;
 import com.cormucopiastudios.januarygame.Views.Menu;
 
 public class JanuaryGame extends Game {
-	SpriteBatch batch;
-	Texture img;
+
 
 	private Menu menu;
 	public final static int MENU = 0;
