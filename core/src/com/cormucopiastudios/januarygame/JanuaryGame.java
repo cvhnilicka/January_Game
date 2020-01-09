@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.cormucopiastudios.januarygame.GameEngine.GameClass;
+import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
 import com.cormucopiastudios.januarygame.Views.LoadingScreen;
 import com.cormucopiastudios.januarygame.Views.Menu;
 
@@ -17,6 +19,9 @@ public class JanuaryGame extends Game {
 
 	private LoadingScreen loadingScreen;
 	public final static int LOADING = -1;
+
+	private GameClass game;
+	public final static int GAME = 2;
 	
 	@Override
 	public void create () {
@@ -35,6 +40,7 @@ public class JanuaryGame extends Game {
 			case MENU: if (menu == null) menu = new Menu(this);
 						this.setScreen(menu);
 						break;
+			case GAME: if (game == null) game = new GameClass(this);
 		}
 	}
 
