@@ -21,10 +21,12 @@ public class PlayScreen implements Screen {
     private B2Model model;
 
     public PlayScreen() {
-        model = new B2Model();
         gamecam = new OrthographicCamera(32,24);
+        model = new B2Model(this);
         debugRenderer = new Box2DDebugRenderer(true,true,true,true,true,true);
     }
+
+    public OrthographicCamera getGamecam() { return gamecam; }
 
 
 

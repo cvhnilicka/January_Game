@@ -18,17 +18,23 @@ public class B2Model {
     private Body bodys;
     private Body bodyk;
 
+    private PlayScreen parent;
 
-    public B2Model() {
-        this.world = new World(new Vector2(0,-10), true);
-        createFloor();
+
+    public B2Model(PlayScreen parent) {
+        this.parent = parent;
+        this.world = new World(new Vector2(0,0), true);
+        createWalls();
         createObject();
         createMovingObject();
 
         BodyFactory bFact = BodyFactory.getInstance(world);
         bFact.makeCirclePolyBody(1,1,2,BodyFactory.FIXTURE_TYPE.RUBBER);
         bFact.makeCirclePolyBody(4,1,2,BodyFactory.FIXTURE_TYPE.STEEL);
-        bFact.makeCirclePolyBody(-4,1,2,BodyFactory.FIXTURE_TYPE.STONE);
+        bFact.makeCirclePolyBody(-4,2,2,BodyFactory.FIXTURE_TYPE.STONE);
+        bFact.makeCirclePolyBody(-2,1.75f,2,BodyFactory.FIXTURE_TYPE.RUBBER);
+        bFact.makeCirclePolyBody(9,3f,2,BodyFactory.FIXTURE_TYPE.STEEL);
+        bFact.makeCirclePolyBody(-4,-1,2,BodyFactory.FIXTURE_TYPE.STONE);
 
         bFact.makeBoxPolyBody(-5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
         bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
@@ -63,16 +69,39 @@ public class B2Model {
         shape.dispose();
     }
 
-    private void createFloor() {
+
+    private void createWalls() {
+        leftWall();
+        rightWall();
+    }
+
+    private void rightWall() {
         // create a new body definition (type and location)
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(0, -10);
+        bodyDef.position.set((parent.getGamecam().viewportWidth/2), 0);
         // add it to the world
         bodys = world.createBody(bodyDef);
         // set the shape (here we use a box 50 meters wide, 1 meter tall )
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(50, 1);
+        shape.setAsBox(1, 50);
+        // create the physical object in our body)
+        // without this our body would just be data in the world
+        bodys.createFixture(shape, 0.0f);
+        // we no longer use the shape object here so dispose of it.
+        shape.dispose();
+    }
+
+    private void leftWall() {
+        // create a new body definition (type and location)
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(-(parent.getGamecam().viewportWidth/2), 0);
+        // add it to the world
+        bodys = world.createBody(bodyDef);
+        // set the shape (here we use a box 50 meters wide, 1 meter tall )
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(1, 50);
         // create the physical object in our body)
         // without this our body would just be data in the world
         bodys.createFixture(shape, 0.0f);
@@ -107,6 +136,6 @@ public class B2Model {
         // we no longer use the shape object here so dispose of it.
         shape.dispose();
 
-        bodyk.setLinearVelocity(0, 0.75f);
+        bodyk.setLinearVelocity(0, 7f);
     }
 }
