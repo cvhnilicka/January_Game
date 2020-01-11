@@ -32,6 +32,7 @@ public class B2Model {
         this.parent = parent;
         this.world = new World(new Vector2(0,-10), true);
         this.controller = parent.getController();
+        this.camera = parent.getGamecam();
         createWalls();
         createObject();
         createMovingObject();
@@ -64,20 +65,13 @@ public class B2Model {
         }
 
         for(Asteroid as : this.roids) {
-            if (as.updateY()) {
-                float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
-                float rightBound = (this.parent.getGamecam().viewportWidth/2)-.5f;
-                Random ran = new Random();
-                float xPos;
-                float yPos;
-                xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
-                yPos = 15;
-                as.b2body.setTransform(new Vector2(xPos,yPos),as.b2body.getAngle());
-            }
+            as.updateY();
         }
 
         world.step(dt,3,3);
     }
+
+    public OrthographicCamera getGamecam() { return this.camera; }
 
     private void createAsteroids() {
         float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
