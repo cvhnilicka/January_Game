@@ -55,13 +55,13 @@ public class B2Model {
     public void logicStep(float dt) {
 
         if (controller.right) {
-            player.applyForceToCenter(new Vector2(10,0),true);
+            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
         } else if (controller.left) {
-            player.applyForceToCenter(new Vector2(-10,0),true);
+            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
         } else if (controller.up) {
-            player.applyForceToCenter(new Vector2(0,10),true);
+            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
         } else if (controller.down) {
-            player.applyForceToCenter(new Vector2(0,-10),true);
+            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
         }
 
         for(Asteroid as : this.roids) {
