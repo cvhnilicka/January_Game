@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 
 public class B2Model {
@@ -16,14 +17,17 @@ public class B2Model {
     private OrthographicCamera camera;
     private Body bodyd;
     private Body bodys;
-    private Body bodyk;
+    private Body player;
 
     private PlayScreen parent;
+
+    private KeyboardController controller;
 
 
     public B2Model(PlayScreen parent) {
         this.parent = parent;
         this.world = new World(new Vector2(0,0), true);
+        this.controller = parent.getController();
         createWalls();
         createObject();
         createMovingObject();
@@ -42,6 +46,17 @@ public class B2Model {
 
 
     public void logicStep(float dt) {
+
+        if (controller.right) {
+            player.applyForceToCenter(new Vector2(10,0),true);
+        } else if (controller.left) {
+            player.applyForceToCenter(new Vector2(-10,0),true);
+        } else if (controller.up) {
+            player.applyForceToCenter(new Vector2(0,10),true);
+        } else if (controller.down) {
+            player.applyForceToCenter(new Vector2(0,-10),true);
+        }
+
         world.step(dt,3,3);
     }
 
@@ -113,12 +128,12 @@ public class B2Model {
 
         //create a new body definition (type and location)
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(0,-12);
 
 
         // add it to the world
-        bodyk = world.createBody(bodyDef);
+        player = world.createBody(bodyDef);
 
         // set the shape (here we use a box 50 meters wide, 1 meter tall )
         PolygonShape shape = new PolygonShape();
@@ -131,11 +146,11 @@ public class B2Model {
 
         // create the physical object in our body)
         // without this our body would just be data in the world
-        bodyk.createFixture(shape, 0.0f);
+        player.createFixture(shape, 0.0f);
 
         // we no longer use the shape object here so dispose of it.
         shape.dispose();
 
-        bodyk.setLinearVelocity(0, 7f);
+        player.setLinearVelocity(0, 0);
     }
 }

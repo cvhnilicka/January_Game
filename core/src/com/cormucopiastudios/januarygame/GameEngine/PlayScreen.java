@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 
 public class PlayScreen implements Screen {
 
@@ -18,21 +19,26 @@ public class PlayScreen implements Screen {
     private Viewport viewport;
     private Box2DDebugRenderer debugRenderer;
 
+    private KeyboardController controller;
+
     private B2Model model;
 
     public PlayScreen() {
         gamecam = new OrthographicCamera(32,24);
+        controller = new KeyboardController();
         model = new B2Model(this);
         debugRenderer = new Box2DDebugRenderer(true,true,true,true,true,true);
     }
 
     public OrthographicCamera getGamecam() { return gamecam; }
 
+    public KeyboardController getController() { return this.controller; }
+
 
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(controller);
     }
 
     @Override
