@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 
+import java.util.Random;
+
 public class B2Model {
     public World world;
     private Box2DDebugRenderer debugRenderer;
@@ -19,6 +21,8 @@ public class B2Model {
     private Body bodys;
     private Body player;
 
+    private Asteroid[] roids = new Asteroid[3];
+
     private PlayScreen parent;
 
     private KeyboardController controller;
@@ -26,22 +30,25 @@ public class B2Model {
 
     public B2Model(PlayScreen parent) {
         this.parent = parent;
-        this.world = new World(new Vector2(0,0), true);
+        this.world = new World(new Vector2(0,-10), true);
         this.controller = parent.getController();
+        this.camera = parent.getGamecam();
         createWalls();
         createObject();
         createMovingObject();
 
         BodyFactory bFact = BodyFactory.getInstance(world);
-        bFact.makeCirclePolyBody(1,1,2,BodyFactory.FIXTURE_TYPE.RUBBER);
-        bFact.makeCirclePolyBody(4,1,2,BodyFactory.FIXTURE_TYPE.STEEL);
-        bFact.makeCirclePolyBody(-4,2,2,BodyFactory.FIXTURE_TYPE.STONE);
-        bFact.makeCirclePolyBody(-2,1.75f,2,BodyFactory.FIXTURE_TYPE.RUBBER);
-        bFact.makeCirclePolyBody(9,3f,2,BodyFactory.FIXTURE_TYPE.STEEL);
-        bFact.makeCirclePolyBody(-4,-1,2,BodyFactory.FIXTURE_TYPE.STONE);
 
-        bFact.makeBoxPolyBody(-5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
-        bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
+        createAsteroids();
+//        bFact.makeCirclePolyBody(1,1,2,BodyFactory.FIXTURE_TYPE.RUBBER);
+//        bFact.makeCirclePolyBody(4,1,2,BodyFactory.FIXTURE_TYPE.STEEL);
+//        bFact.makeCirclePolyBody(-4,2,2,BodyFactory.FIXTURE_TYPE.STONE);
+//        bFact.makeCirclePolyBody(-2,1.75f,2,BodyFactory.FIXTURE_TYPE.RUBBER);
+//        bFact.makeCirclePolyBody(9,3f,2,BodyFactory.FIXTURE_TYPE.STEEL);
+//        bFact.makeCirclePolyBody(-4,-1,2,BodyFactory.FIXTURE_TYPE.STONE);
+//
+//        bFact.makeBoxPolyBody(-5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
+//        bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
     }
 
 
@@ -57,14 +64,34 @@ public class B2Model {
             player.applyForceToCenter(new Vector2(0,-10),true);
         }
 
+        for(Asteroid as : this.roids) {
+            as.updateY();
+        }
+
         world.step(dt,3,3);
+    }
+
+    public OrthographicCamera getGamecam() { return this.camera; }
+
+    private void createAsteroids() {
+        float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
+        float rightBound = (this.parent.getGamecam().viewportWidth/2)-.5f;
+        Random ran = new Random();
+        float xPos;
+        float yPos;
+
+        for (int i = 0; i < this.roids.length; i++) {
+            xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
+            yPos = ran.nextFloat() * (10 - 5 + 1.0f) + 5;
+            roids[i] = new Asteroid(this, xPos, yPos);
+        }
     }
 
     private void createObject() {
         // create a new body def
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(0,0);
+        bdef.position.set(-7,0);
 
         // add it to the world
         bodyd = world.createBody(bdef);
@@ -124,6 +151,10 @@ public class B2Model {
         shape.dispose();
     }
 
+    public OrthographicCamera getCamera() {
+        return this.camera;
+    }
+
     private void createMovingObject(){
 
         //create a new body definition (type and location)
@@ -134,6 +165,7 @@ public class B2Model {
 
         // add it to the world
         player = world.createBody(bodyDef);
+        player.setGravityScale(0.0f);
 
         // set the shape (here we use a box 50 meters wide, 1 meter tall )
         PolygonShape shape = new PolygonShape();
