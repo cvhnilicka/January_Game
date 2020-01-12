@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
+import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 
 public class PlayScreen implements Screen {
 
@@ -18,14 +21,24 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport viewport;
     private Box2DDebugRenderer debugRenderer;
-
     private KeyboardController controller;
-
+    private B2AssetManager assMan;
     private B2Model model;
 
-    public PlayScreen() {
+    private SpriteBatch batch;
+
+    private Texture playerTex;
+
+    public PlayScreen(GameClass game) {
+        this.game = game;
+        batch = new SpriteBatch();
         gamecam = new OrthographicCamera(32,24);
+        batch.setProjectionMatrix(gamecam.combined);
         controller = new KeyboardController();
+        this.assMan = this.game.getParent().assMan;
+        assMan.queueAddImages();
+        assMan.manager.finishLoading();
+        playerTex = assMan.manager.get(assMan.player, Texture.class);
         model = new B2Model(this);
         debugRenderer = new Box2DDebugRenderer(true,true,true,true,true,true);
     }
@@ -34,7 +47,9 @@ public class PlayScreen implements Screen {
 
     public KeyboardController getController() { return this.controller; }
 
-
+    public B2AssetManager getAssMan() {
+        return assMan;
+    }
 
     @Override
     public void show() {
@@ -43,10 +58,14 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         model.logicStep(delta);
         Gdx.gl.glClearColor(0f,0f,0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         debugRenderer.render(model.world, gamecam.combined);
+        batch.begin();
+        model.player.draw(batch);
+        batch.end();
 
     }
 
@@ -72,6 +91,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 }

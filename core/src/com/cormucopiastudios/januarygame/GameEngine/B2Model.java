@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
+import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 
@@ -23,7 +24,7 @@ public class B2Model {
     private OrthographicCamera camera;
     private Body bodyd;
     private Body bodys;
-    private Player player;
+    public Player player;
 
     private int score;
 
@@ -65,12 +66,17 @@ public class B2Model {
 //        bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
     }
 
+    public B2AssetManager getAss() {
+        return parent.getAssMan();
+    }
+
 
     public void logicStep(float dt) {
 
         Vector3 mosPos = new Vector3(controller.mouseLoc,0);
         this.getGamecam().unproject(mosPos);
         this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
+        this.player.update(dt);
 
 //        if (controller.right) {
 //            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
