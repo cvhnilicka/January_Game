@@ -1,6 +1,7 @@
 package com.cormucopiastudios.januarygame.GameEngine;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -77,24 +78,10 @@ public class B2Model {
         this.getGamecam().unproject(mosPos);
         this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
         this.player.update(dt);
-
-//        if (controller.right) {
-//            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
-//        } else if (controller.left) {
-//            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
-//        } else if (controller.up) {
-//            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
-//        } else if (controller.down) {
-//            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
-//        }
-//
-//        if (this.score % 9 == 0 && !waitToAdd && this.score > 0) {
-//            Gdx.app.log("B2Model", String.valueOf(this.score));
-//            addAsteroid();
-//            waitToAdd = true;
-//        }
+        
 
         for(Asteroid as : this.roids) {
+            as.update(dt);
             if (as.updateY()) {
                 this.score += 1;
                 this.addNew += 1;
@@ -105,6 +92,13 @@ public class B2Model {
 
 
         world.step(dt,3,3);
+    }
+
+    public void draw(Batch batch) {
+        this.player.draw(batch);
+        for (Asteroid roid: this.roids) {
+            roid.draw(batch);
+        }
     }
 
     public OrthographicCamera getGamecam() { return this.camera; }

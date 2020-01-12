@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         debugRenderer.render(model.world, gamecam.combined);
         batch.begin();
-        model.player.draw(batch);
+        model.draw(batch);
         batch.end();
 
     }

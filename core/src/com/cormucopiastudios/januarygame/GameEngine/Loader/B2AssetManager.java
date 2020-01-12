@@ -9,10 +9,12 @@ public class B2AssetManager {
 
     // player
     public final String player = "shiptotal.png";
+    public final String asteroid = "asteroid.png";
 
 
     public void queueAddImages() {
         manager.load(player, Texture.class);
+        manager.load(asteroid, Texture.class);
     }
 
 }
