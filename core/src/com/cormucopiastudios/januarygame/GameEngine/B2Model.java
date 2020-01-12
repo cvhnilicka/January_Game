@@ -1,6 +1,5 @@
 package com.cormucopiastudios.januarygame.GameEngine;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -13,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class B2Model {
     private OrthographicCamera camera;
     private Body bodyd;
     private Body bodys;
-    private Body player;
+    private Player player;
 
     private int score;
 
@@ -46,9 +47,11 @@ public class B2Model {
         this.camera = parent.getGamecam();
         createWalls();
         createObject();
-        createMovingObject();
+//        createMovingObject();
 
         BodyFactory bFact = BodyFactory.getInstance(world);
+
+        player = new Player(this);
 
         createAsteroids();
 //        bFact.makeCirclePolyBody(1,1,2,BodyFactory.FIXTURE_TYPE.RUBBER);
@@ -67,7 +70,7 @@ public class B2Model {
 
         Vector3 mosPos = new Vector3(controller.mouseLoc,0);
         this.getGamecam().unproject(mosPos);
-        this.player.setTransform(mosPos.x,mosPos.y, player.getAngle());
+        this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
 
 //        if (controller.right) {
 //            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
@@ -203,8 +206,7 @@ public class B2Model {
 
 
         // add it to the world
-        player = world.createBody(bodyDef);
-        player.setGravityScale(0.0f);
+        bodyd = world.createBody(bodyDef);
 
         // set the shape (here we use a box 50 meters wide, 1 meter tall )
         PolygonShape shape = new PolygonShape();
@@ -217,11 +219,11 @@ public class B2Model {
 
         // create the physical object in our body)
         // without this our body would just be data in the world
-        player.createFixture(shape, 0.0f);
+        bodyd.createFixture(shape, 0.0f);
 
         // we no longer use the shape object here so dispose of it.
         shape.dispose();
 
-        player.setLinearVelocity(0, 0);
+        bodyd.setLinearVelocity(0, 0);
     }
 }
