@@ -16,7 +16,11 @@ public class GameClass extends Game {
 
     public GameClass(JanuaryGame parent) {
         this.parent = parent;
-        parent.setScreen(new PlayScreen()); // use this to set the game to the playscreen
+        parent.setScreen(new PlayScreen(this)); // use this to set the game to the playscreen
+    }
+
+    public JanuaryGame getParent() {
+        return parent;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.cormucopiastudios.januarygame.GameEngine;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
+import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 
@@ -23,7 +25,7 @@ public class B2Model {
     private OrthographicCamera camera;
     private Body bodyd;
     private Body bodys;
-    private Player player;
+    public Player player;
 
     private int score;
 
@@ -65,40 +67,38 @@ public class B2Model {
 //        bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
     }
 
+    public B2AssetManager getAss() {
+        return parent.getAssMan();
+    }
+
 
     public void logicStep(float dt) {
 
         Vector3 mosPos = new Vector3(controller.mouseLoc,0);
         this.getGamecam().unproject(mosPos);
         this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
+        this.player.update(dt);
 
-//        if (controller.right) {
-//            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
-//        } else if (controller.left) {
-//            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
-//        } else if (controller.up) {
-//            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
-//        } else if (controller.down) {
-//            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
-//        }
-//
-//        if (this.score % 9 == 0 && !waitToAdd && this.score > 0) {
-//            Gdx.app.log("B2Model", String.valueOf(this.score));
-//            addAsteroid();
-//            waitToAdd = true;
-//        }
 
         for(Asteroid as : this.roids) {
+            as.update(dt);
             if (as.updateY()) {
                 this.score += 1;
                 this.addNew += 1;
-                if (addNew == 10) addAsteroid();
+                if (addNew == 5) addAsteroid();
             }
         }
 
 
 
         world.step(dt,3,3);
+    }
+
+    public void draw(Batch batch) {
+        this.player.draw(batch);
+        for (Asteroid roid: this.roids) {
+            roid.draw(batch);
+        }
     }
 
     public OrthographicCamera getGamecam() { return this.camera; }
@@ -123,7 +123,7 @@ public class B2Model {
 
         for (int i = 0; i < STARTING_ASTEROIDS; i++) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
-            yPos = ran.nextFloat() * (10 - 5 + 1.0f) + 5;
+            yPos = ran.nextFloat() * (30 - 15 + 1.0f) + 15;
             roids.add(new Asteroid(this, xPos, yPos));
 //            roids[i] = new Asteroid(this, xPos, yPos);
         }

@@ -1,6 +1,7 @@
 package com.cormucopiastudios.januarygame.GameEngine.Models;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,9 +16,12 @@ public class Asteroid extends Sprite {
     private B2Model parent;
 
     public Asteroid(B2Model parent, float posx, float posy) {
+        super((Texture)parent.getAss().manager.get(parent.getAss().asteroid));
         this.parent = parent;
         BodyFactory bFact = BodyFactory.getInstance(parent.world);
         this.b2body = bFact.makeCirclePolyBody(posx,posy,2,BodyFactory.FIXTURE_TYPE.STONE);
+        setBounds(b2body.getPosition().x, b2body.getPosition().y, 4, 4);
+        setPosition(b2body.getPosition().x, b2body.getPosition().y);
     }
 
     public boolean updateY() {
@@ -29,19 +33,17 @@ public class Asteroid extends Sprite {
 
         if (this.b2body.getPosition().y < -15) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
-            yPos = 20;
+            yPos = ran.nextFloat() * (30 - 15 + 1f) + 15;
+            float xImp = ran.nextFloat() * (4 - (-4))+ 1;
             this.b2body.setTransform(new Vector2(xPos,yPos),this.b2body.getAngle());
-            this.b2body.setLinearVelocity(new Vector2(0,-10));
+            this.b2body.setLinearVelocity(new Vector2(xImp,-10));
             return true;
         }
         return false;
     }
 
     public void update(float dt) {
-
+        setPosition(b2body.getPosition().x-getWidth()/2, b2body.getPosition().y-getHeight()/2);
     }
 
-//    private void defineAsteroid() {
-//        this.b2body = bfact.makeCirclePolyBody(-4,2,2,BodyFactory.FIXTURE_TYPE.STONE);
-//    }
 }

@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cormucopiastudios.januarygame.GameEngine.GameClass;
+import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
 import com.cormucopiastudios.januarygame.Views.LoadingScreen;
 import com.cormucopiastudios.januarygame.Views.Menu;
 
 public class JanuaryGame extends Game {
+
+	public B2AssetManager assMan = new B2AssetManager();
 
 
 	private Menu menu;
