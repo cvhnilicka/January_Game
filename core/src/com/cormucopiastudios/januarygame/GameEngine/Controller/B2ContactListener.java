@@ -1,9 +1,10 @@
-package com.cormucopiastudios.januarygame.GameEngine;
+package com.cormucopiastudios.januarygame.GameEngine.Controller;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.cormucopiastudios.januarygame.GameEngine.B2Model;
 
 public class B2ContactListener implements ContactListener {
 
