@@ -3,10 +3,13 @@ package com.cormucopiastudios.januarygame.GameEngine.Controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 
 public class KeyboardController implements InputProcessor {
 
     public boolean left, right, up, down;
+
+    public Vector2 mouseLoc = new Vector2(0,-12);
 
 
     @Override
@@ -86,6 +89,8 @@ public class KeyboardController implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        mouseLoc.x = screenX;
+        mouseLoc.y = screenY;
         return false;
     }
 

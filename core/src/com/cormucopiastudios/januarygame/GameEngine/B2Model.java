@@ -3,6 +3,7 @@ package com.cormucopiastudios.januarygame.GameEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -64,15 +65,19 @@ public class B2Model {
 
     public void logicStep(float dt) {
 
-        if (controller.right) {
-            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
-        } else if (controller.left) {
-            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
-        } else if (controller.up) {
-            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
-        } else if (controller.down) {
-            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
-        }
+        Vector3 mosPos = new Vector3(controller.mouseLoc,0);
+        this.getGamecam().unproject(mosPos);
+        this.player.setTransform(mosPos.x,mosPos.y, player.getAngle());
+
+//        if (controller.right) {
+//            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
+//        } else if (controller.left) {
+//            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
+//        } else if (controller.up) {
+//            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
+//        } else if (controller.down) {
+//            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
+//        }
 //
 //        if (this.score % 9 == 0 && !waitToAdd && this.score > 0) {
 //            Gdx.app.log("B2Model", String.valueOf(this.score));
@@ -84,7 +89,7 @@ public class B2Model {
             if (as.updateY()) {
                 this.score += 1;
                 this.addNew += 1;
-                if (addNew % 9 == 0 && addNew > 0) addAsteroid();
+                if (addNew == 10) addAsteroid();
             }
         }
 
