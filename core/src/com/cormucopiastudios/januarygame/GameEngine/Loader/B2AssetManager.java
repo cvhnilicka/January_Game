@@ -8,7 +8,7 @@ public class B2AssetManager {
     public final AssetManager manager = new AssetManager();
 
     // player
-    public final String player = "ship.png";
+    public final String player = "shiptotal.png";
 
 
     public void queueAddImages() {
