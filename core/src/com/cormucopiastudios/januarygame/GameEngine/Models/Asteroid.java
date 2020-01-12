@@ -33,9 +33,10 @@ public class Asteroid extends Sprite {
 
         if (this.b2body.getPosition().y < -15) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
-            yPos = ran.nextFloat() * (20 - 15 + 1f) + 15;
+            yPos = ran.nextFloat() * (30 - 15 + 1f) + 15;
+            float xImp = ran.nextFloat() * (4 - (-4))+ 1;
             this.b2body.setTransform(new Vector2(xPos,yPos),this.b2body.getAngle());
-            this.b2body.setLinearVelocity(new Vector2(0,-10));
+            this.b2body.setLinearVelocity(new Vector2(xImp,-10));
             return true;
         }
         return false;

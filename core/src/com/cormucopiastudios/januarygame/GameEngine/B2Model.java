@@ -78,14 +78,14 @@ public class B2Model {
         this.getGamecam().unproject(mosPos);
         this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
         this.player.update(dt);
-        
+
 
         for(Asteroid as : this.roids) {
             as.update(dt);
             if (as.updateY()) {
                 this.score += 1;
                 this.addNew += 1;
-                if (addNew == 10) addAsteroid();
+                if (addNew == 5) addAsteroid();
             }
         }
 
@@ -123,7 +123,7 @@ public class B2Model {
 
         for (int i = 0; i < STARTING_ASTEROIDS; i++) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
-            yPos = ran.nextFloat() * (10 - 5 + 1.0f) + 5;
+            yPos = ran.nextFloat() * (30 - 15 + 1.0f) + 15;
             roids.add(new Asteroid(this, xPos, yPos));
 //            roids[i] = new Asteroid(this, xPos, yPos);
         }
