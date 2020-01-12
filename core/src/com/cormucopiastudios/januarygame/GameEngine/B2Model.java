@@ -1,13 +1,16 @@
 package com.cormucopiastudios.januarygame.GameEngine;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 
@@ -21,14 +24,22 @@ public class B2Model {
     private Body bodys;
     private Body player;
 
-    private Asteroid[] roids = new Asteroid[3];
+    private int score;
+
+    private Array<Asteroid> roids;
+
+    public final int STARTING_ASTEROIDS = 3;
 
     private PlayScreen parent;
 
     private KeyboardController controller;
 
+    private int addNew;
+
 
     public B2Model(PlayScreen parent) {
+        addNew = 0;
+        score = 0;
         this.parent = parent;
         this.world = new World(new Vector2(0,-10), true);
         this.controller = parent.getController();
@@ -54,36 +65,64 @@ public class B2Model {
 
     public void logicStep(float dt) {
 
-        if (controller.right) {
-            player.applyForceToCenter(new Vector2(10,0),true);
-        } else if (controller.left) {
-            player.applyForceToCenter(new Vector2(-10,0),true);
-        } else if (controller.up) {
-            player.applyForceToCenter(new Vector2(0,10),true);
-        } else if (controller.down) {
-            player.applyForceToCenter(new Vector2(0,-10),true);
-        }
+        Vector3 mosPos = new Vector3(controller.mouseLoc,0);
+        this.getGamecam().unproject(mosPos);
+        this.player.setTransform(mosPos.x,mosPos.y, player.getAngle());
+
+//        if (controller.right) {
+//            player.applyLinearImpulse(new Vector2(1,0),player.getWorldCenter(),true);
+//        } else if (controller.left) {
+//            player.applyLinearImpulse(new Vector2(-1,0),player.getWorldCenter(),true);
+//        } else if (controller.up) {
+//            player.applyLinearImpulse(new Vector2(0,1),player.getWorldCenter(),true);
+//        } else if (controller.down) {
+//            player.applyLinearImpulse(new Vector2(0,-1),player.getWorldCenter(),true);
+//        }
+//
+//        if (this.score % 9 == 0 && !waitToAdd && this.score > 0) {
+//            Gdx.app.log("B2Model", String.valueOf(this.score));
+//            addAsteroid();
+//            waitToAdd = true;
+//        }
 
         for(Asteroid as : this.roids) {
-            as.updateY();
+            if (as.updateY()) {
+                this.score += 1;
+                this.addNew += 1;
+                if (addNew == 10) addAsteroid();
+            }
         }
+
+
 
         world.step(dt,3,3);
     }
 
     public OrthographicCamera getGamecam() { return this.camera; }
 
+    private void addAsteroid(){
+        float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
+        float rightBound = (this.parent.getGamecam().viewportWidth/2)-.5f;
+        Random ran = new Random();
+        float xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;;
+        float yPos = 20;
+        this.roids.add(new Asteroid(this,xPos,yPos));
+        addNew = 0;
+    }
+
     private void createAsteroids() {
+        this.roids = new Array<Asteroid>();
         float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
         float rightBound = (this.parent.getGamecam().viewportWidth/2)-.5f;
         Random ran = new Random();
         float xPos;
         float yPos;
 
-        for (int i = 0; i < this.roids.length; i++) {
+        for (int i = 0; i < STARTING_ASTEROIDS; i++) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
             yPos = ran.nextFloat() * (10 - 5 + 1.0f) + 5;
-            roids[i] = new Asteroid(this, xPos, yPos);
+            roids.add(new Asteroid(this, xPos, yPos));
+//            roids[i] = new Asteroid(this, xPos, yPos);
         }
     }
 
