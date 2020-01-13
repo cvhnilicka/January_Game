@@ -16,6 +16,7 @@ import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Wall;
 
 import java.util.Random;
 
@@ -23,8 +24,8 @@ public class B2Model {
     public World world;
     private Box2DDebugRenderer debugRenderer;
     private OrthographicCamera camera;
-    private Body bodyd;
-    private Body bodys;
+    private Wall rightWall;
+    private Wall leftWall;
     public Player player;
 
     private int score;
@@ -48,23 +49,13 @@ public class B2Model {
         this.controller = parent.getController();
         this.camera = parent.getGamecam();
         createWalls();
-        createObject();
-//        createMovingObject();
 
         BodyFactory bFact = BodyFactory.getInstance(world);
 
         player = new Player(this);
 
         createAsteroids();
-//        bFact.makeCirclePolyBody(1,1,2,BodyFactory.FIXTURE_TYPE.RUBBER);
-//        bFact.makeCirclePolyBody(4,1,2,BodyFactory.FIXTURE_TYPE.STEEL);
-//        bFact.makeCirclePolyBody(-4,2,2,BodyFactory.FIXTURE_TYPE.STONE);
-//        bFact.makeCirclePolyBody(-2,1.75f,2,BodyFactory.FIXTURE_TYPE.RUBBER);
-//        bFact.makeCirclePolyBody(9,3f,2,BodyFactory.FIXTURE_TYPE.STEEL);
-//        bFact.makeCirclePolyBody(-4,-1,2,BodyFactory.FIXTURE_TYPE.STONE);
-//
-//        bFact.makeBoxPolyBody(-5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
-//        bFact.makeBoxPolyBody(5,3,1,1, BodyFactory.FIXTURE_TYPE.STONE, BodyDef.BodyType.DynamicBody);
+
     }
 
     public B2AssetManager getAss() {
@@ -75,7 +66,7 @@ public class B2Model {
     public void logicStep(float dt) {
 
         Vector3 mosPos = new Vector3(controller.mouseLoc,0);
-        this.getGamecam().unproject(mosPos);
+        this.getCamera().unproject(mosPos);
         this.player.b2body.setTransform(mosPos.x,mosPos.y, player.b2body.getAngle());
         this.player.update(dt);
 
@@ -99,9 +90,9 @@ public class B2Model {
         for (Asteroid roid: this.roids) {
             roid.draw(batch);
         }
+        this.rightWall.draw(batch);
+        this.leftWall.draw(batch);
     }
-
-    public OrthographicCamera getGamecam() { return this.camera; }
 
     private void addAsteroid(){
         float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
@@ -125,33 +116,9 @@ public class B2Model {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
             yPos = ran.nextFloat() * (30 - 15 + 1.0f) + 15;
             roids.add(new Asteroid(this, xPos, yPos));
-//            roids[i] = new Asteroid(this, xPos, yPos);
         }
     }
 
-    private void createObject() {
-        // create a new body def
-        BodyDef bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(-7,0);
-
-        // add it to the world
-        bodyd = world.createBody(bdef);
-
-        // set the shape
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1,1);
-
-        // set the properties of the object (shape, weight, restitution (bouncyness))
-        FixtureDef fdef = new FixtureDef();
-        fdef.shape = shape;
-        fdef.density = 1f;
-
-        // create the physical object in our body
-        // without this our body would just be data in the world, not a literal body
-        bodyd.createFixture(fdef); // might need to change later
-        shape.dispose();
-    }
 
 
     private void createWalls() {
@@ -160,70 +127,15 @@ public class B2Model {
     }
 
     private void rightWall() {
-        // create a new body definition (type and location)
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set((parent.getGamecam().viewportWidth/2), 0);
-        // add it to the world
-        bodys = world.createBody(bodyDef);
-        // set the shape (here we use a box 50 meters wide, 1 meter tall )
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1, 50);
-        // create the physical object in our body)
-        // without this our body would just be data in the world
-        bodys.createFixture(shape, 0.0f);
-        // we no longer use the shape object here so dispose of it.
-        shape.dispose();
+        rightWall = new Wall(this,true,parent.getAssMan().rightWall);
     }
 
     private void leftWall() {
-        // create a new body definition (type and location)
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(-(parent.getGamecam().viewportWidth/2), 0);
-        // add it to the world
-        bodys = world.createBody(bodyDef);
-        // set the shape (here we use a box 50 meters wide, 1 meter tall )
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1, 50);
-        // create the physical object in our body)
-        // without this our body would just be data in the world
-        bodys.createFixture(shape, 0.0f);
-        // we no longer use the shape object here so dispose of it.
-        shape.dispose();
+        leftWall = new Wall(this,false,parent.getAssMan().leftWall);
     }
 
     public OrthographicCamera getCamera() {
         return this.camera;
     }
 
-    private void createMovingObject(){
-
-        //create a new body definition (type and location)
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(0,-12);
-
-
-        // add it to the world
-        bodyd = world.createBody(bodyDef);
-
-        // set the shape (here we use a box 50 meters wide, 1 meter tall )
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1,1);
-
-        // set the properties of the object ( shape, weight, restitution(bouncyness)
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
-
-        // create the physical object in our body)
-        // without this our body would just be data in the world
-        bodyd.createFixture(shape, 0.0f);
-
-        // we no longer use the shape object here so dispose of it.
-        shape.dispose();
-
-        bodyd.setLinearVelocity(0, 0);
-    }
 }

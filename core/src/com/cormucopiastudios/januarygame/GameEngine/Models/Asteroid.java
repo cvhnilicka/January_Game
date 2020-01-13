@@ -25,8 +25,8 @@ public class Asteroid extends Sprite {
     }
 
     public boolean updateY() {
-        float leftBound = -(this.parent.getGamecam().viewportWidth/2)+.5f;
-        float rightBound = (this.parent.getGamecam().viewportWidth/2)-.5f;
+        float leftBound = -(this.parent.getCamera().viewportWidth/2)+.5f;
+        float rightBound = (this.parent.getCamera().viewportWidth/2)-.5f;
         Random ran = new Random();
         float xPos;
         float yPos;
