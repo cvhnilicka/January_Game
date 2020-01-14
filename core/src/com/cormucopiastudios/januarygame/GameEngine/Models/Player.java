@@ -22,10 +22,10 @@ public class Player extends Sprite {
         this.parent = parent;
         texture = parent.getAss().manager.get(parent.getAss().player);
         BodyFactory bFact = BodyFactory.getInstance(parent.world);
-        b2body = bFact.makeBoxPolyBody(0,-12,2f,4f,
+        b2body = bFact.makeBoxPolyBody(0,-12,2.5f,6f,
                 BodyFactory.FIXTURE_TYPE.STEEL, BodyDef.BodyType.DynamicBody, true);
         b2body.setGravityScale(0f);
-        setBounds(b2body.getPosition().x, b2body.getPosition().y, 2, 4);
+        setBounds(b2body.getPosition().x, b2body.getPosition().y, 2.5f, 6);
         setPosition(b2body.getPosition().x, b2body.getPosition().y);
 
     }

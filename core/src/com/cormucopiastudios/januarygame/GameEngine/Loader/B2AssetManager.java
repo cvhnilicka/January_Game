@@ -12,6 +12,7 @@ public class B2AssetManager {
     public final String asteroid = "asteroid.png";
     public final String leftWall = "LeftRocks.png";
     public final String rightWall = "RightRocks.png";
+    public final String background = "star_background1.png";
 
 
     public void queueAddImages() {
@@ -19,6 +20,7 @@ public class B2AssetManager {
         manager.load(asteroid, Texture.class);
         manager.load(leftWall, Texture.class);
         manager.load(rightWall, Texture.class);
+        manager.load(background, Texture.class);
     }
 
 }

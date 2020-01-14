@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -27,6 +28,9 @@ public class PlayScreen implements Screen {
 
     private SpriteBatch batch;
 
+
+    private Sprite backgroundSprite;
+
     private Texture playerTex;
 
     public PlayScreen(GameClass game) {
@@ -38,6 +42,9 @@ public class PlayScreen implements Screen {
         this.assMan = this.game.getParent().assMan;
         assMan.queueAddImages();
         assMan.manager.finishLoading();
+        backgroundSprite = new Sprite((Texture)assMan.manager.get(assMan.background));
+        backgroundSprite.setBounds(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2,gamecam.viewportWidth,gamecam.viewportHeight);
+        backgroundSprite.setPosition(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2);
         playerTex = assMan.manager.get(assMan.player, Texture.class);
         model = new B2Model(this);
         debugRenderer = new Box2DDebugRenderer(true,true,true,true,true,true);
@@ -63,7 +70,13 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0f,0f,0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         debugRenderer.render(model.world, gamecam.combined);
+//        Gdx.app.log("Render", String.valueOf(backgroundSprite.getY()));
+//        if (backgroundSprite.getY() < -gamecam.viewportHeight)
+//            backgroundSprite.setPosition(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2);
+//        else
+//            backgroundSprite.setPosition(backgroundSprite.getX(), backgroundSprite.getY()-1);
         batch.begin();
+        backgroundSprite.draw(batch);
         model.draw(batch);
         batch.end();
 
