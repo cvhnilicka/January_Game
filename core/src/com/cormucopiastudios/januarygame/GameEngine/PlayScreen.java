@@ -65,7 +65,6 @@ public class PlayScreen implements Screen {
     }
 
     private void drawBackground(Batch batch){
-        Gdx.app.log("Background Sprite[2] : POS", String.valueOf(backgroundSprites[2].getY()));
         if (backgroundSprites[0].getY() < -(3*gamecam.viewportHeight/2)) {
             backgroundSprites[0].setPosition(backgroundSprites[0].getX(), backgroundSprites[2].getY()+gamecam.viewportHeight);
             Gdx.app.log("Background Sprite[0] : Switch", String.valueOf(backgroundSprites[0].getY()));
@@ -102,9 +101,9 @@ public class PlayScreen implements Screen {
     public void render(float delta) {
 
         model.logicStep(delta);
-        Gdx.gl.glClearColor(0f,0f,0f,1);
+        Gdx.gl.glClearColor(1f,1f,1f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        debugRenderer.render(model.world, gamecam.combined);
+//        debugRenderer.render(model.world, gamecam.combined);
         batch.begin();
         drawBackground(batch);
         model.draw(batch);
