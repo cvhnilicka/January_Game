@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -16,6 +17,7 @@ import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,10 +57,22 @@ public class Hud implements Disposable {
         scoreImages[2] = new Image();
         scoreImages[3] = new Image();
         this.score = 0;
-        this.updateScore(1264);
+        this.updateScore(0);
     }
 
     public void updateScore(int score) {
+
+        if (score == 0) {
+            scoreImages[0] = new Image((Texture)parent.getAssMan()
+                    .manager.get(parent.getAssMan().zero));
+            scoreImages[1] = new Image((Texture)parent.getAssMan()
+                    .manager.get(parent.getAssMan().zero));
+            scoreImages[2] = new Image((Texture)parent.getAssMan()
+                    .manager.get(parent.getAssMan().zero));
+            scoreImages[3] = new Image((Texture)parent.getAssMan()
+                    .manager.get(parent.getAssMan().zero));
+            return;
+        }
         Gdx.app.log("HUD : Update Score", String.valueOf(score));
         this.score = score;
         LinkedList<Integer> digits = new LinkedList<>();
@@ -68,53 +82,57 @@ public class Hud implements Disposable {
         }
 
         int pad = 4-digits.size();
-        if (digits.size() < 4) {
-            Gdx.app.log("HUD : Update Score pad", String.valueOf(pad));
-            for (int j = 0; j < pad; j++) {
-                Gdx.app.log("Loop: ", String.valueOf(j));
-                scoreImages[3-j] = new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().zero));
-            }
-        }
+        Collections.reverse(digits);
+//        if (digits.size() < 4) {
+//            for (int j = 0; j < pad; j++) {
+//                Gdx.app.log("Setting X position to Zero: ", String.valueOf(3-j));
+//                scoreImages[3-j] = new Image((Texture)parent.getAssMan()
+//                        .manager.get(parent.getAssMan().zero));
+//            }
+//        }
         Gdx.app.log("Digits size", String.valueOf(digits.size()));
         Gdx.app.log("Pad size", String.valueOf(pad));
         int i = 4-pad;
         Gdx.app.log("digits", String.valueOf(digits));
         while(!digits.isEmpty()) {
+            Gdx.app.log("Setting Postiion X to POP", String.valueOf(i-1));
             switch (digits.pop()) {
-
-                case 1: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().one));
+                case 1:
+                scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().one))));
+                Gdx.app.log("FUCK", "SET 111111111111");
                     break;
-                case 2: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().two));
+                case 2: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().two))));
                     break;
-                case 3: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().three));
+                case 3: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().three))));
                     break;
-                case 4: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().four));
+                case 4: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().four))));
                     break;
-                case 5: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().five));
+                case 5: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().five))));
                     break;
-                case 6: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().six));
+                case 6: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().six))));
                     break;
-                case 7: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().seven));
+                case 7: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().seven))));
                     break;
-                case 8: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().eight));
+                case 8: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().eight))));
                     break;
-                case 9: scoreImages[i-1]= new Image((Texture)parent.getAssMan()
-                        .manager.get(parent.getAssMan().nine));
+                case 9: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                        .manager.get(parent.getAssMan().nine))));
                     break;
-                    default: scoreImages[i-1] = new Image((Texture)parent.getAssMan()
-                            .manager.get(parent.getAssMan().zero));
+                    case 0: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
+                            .manager.get(parent.getAssMan().zero))));
+                    break;
             }
             i--;
         }
+        stage.draw();
 
     }
 

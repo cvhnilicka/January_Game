@@ -116,6 +116,10 @@ public class PlayScreen implements Screen {
 
     }
 
+    public void updateScore(int score) {
+        this.hud.updateScore(score);
+    }
+
     @Override
     public void resize(int width, int height) {
 
