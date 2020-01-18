@@ -14,11 +14,12 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
+import com.cormucopiastudios.januarygame.GameEngine.Views.Hud;
 
 public class PlayScreen implements Screen {
 
     private GameClass game;
-
+    private Hud hud;
     // camera shit
     private OrthographicCamera gamecam;
     private Viewport viewport;
@@ -37,7 +38,7 @@ public class PlayScreen implements Screen {
     public PlayScreen(GameClass game) {
         this.game = game;
         batch = new SpriteBatch();
-        gamecam = new OrthographicCamera(32,24);
+        gamecam = new OrthographicCamera(GameClass.V_WITDH,GameClass.V_HEIGHT);
         batch.setProjectionMatrix(gamecam.combined);
         controller = new KeyboardController();
         this.assMan = this.game.getParent().assMan;
@@ -45,6 +46,7 @@ public class PlayScreen implements Screen {
         assMan.manager.finishLoading();
         backgroundSetUp();
         playerTex = assMan.manager.get(assMan.player, Texture.class);
+        hud = new Hud(game.batch, this);
         model = new B2Model(this);
         debugRenderer = new Box2DDebugRenderer(true,true,true,true,true,true);
     }
@@ -108,7 +110,14 @@ public class PlayScreen implements Screen {
         drawBackground(batch);
         model.draw(batch);
         batch.end();
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
+
+    }
+
+    public void updateScore(int score) {
+        this.hud.updateScore(score);
     }
 
     @Override

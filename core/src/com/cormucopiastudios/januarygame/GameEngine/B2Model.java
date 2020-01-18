@@ -75,6 +75,7 @@ public class B2Model {
             as.update(dt);
             if (as.updateY()) {
                 this.score += 1;
+                this.parent.updateScore(this.score);
                 this.addNew += 1;
                 if (addNew == 5) addAsteroid();
             }
