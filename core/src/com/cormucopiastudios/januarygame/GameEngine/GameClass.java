@@ -11,6 +11,8 @@ public class GameClass extends Game {
     public static final float PPM = 100;
     public SpriteBatch batch;  // thhis allows all screens to access it
     public static final short PLATFORM_BIT = 1;
+    public static final short PLAYER_BIT = 2;
+    public static final short ASTEROID_BIT = 4;
 
     private JanuaryGame parent;
 

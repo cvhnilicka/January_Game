@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 
 public class BodyFactory {
 
@@ -41,6 +42,8 @@ public class BodyFactory {
                 fdef.density = 1f;
                 fdef.friction = 0.3f;
                 fdef.restitution = 0.1f;
+                fdef.filter.categoryBits = GameClass.PLAYER_BIT;
+                fdef.filter.maskBits = GameClass.ASTEROID_BIT | GameClass.PLATFORM_BIT;
                 break;
             case WOOD:
                 fdef.density = 0.5f;
@@ -56,6 +59,8 @@ public class BodyFactory {
                 fdef.density = 1f;
                 fdef.friction = 0.9f;
                 fdef.restitution = 0.01f;
+                fdef.filter.categoryBits = GameClass.ASTEROID_BIT;
+                fdef.filter.maskBits = GameClass.ASTEROID_BIT | GameClass.PLATFORM_BIT | GameClass.PLAYER_BIT;
             default:
                 fdef.density = 7f;
                 fdef.friction = 0.5f;
@@ -153,7 +158,7 @@ public class BodyFactory {
      * */
     public void makeConeSensor(Body body, float size) {
         FixtureDef fdef = new FixtureDef();
-//        fdef.isSensor = true; // will uncomment later
+        fdef.isSensor = true; // will uncomment later
 
         PolygonShape polygon = new PolygonShape();
         float radius = size;
