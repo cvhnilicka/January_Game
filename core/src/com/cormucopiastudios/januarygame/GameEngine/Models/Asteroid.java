@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.cormucopiastudios.januarygame.GameEngine.B2Model;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 
@@ -19,7 +20,8 @@ public class Asteroid extends Sprite {
         super((Texture)parent.getAss().manager.get(parent.getAss().asteroid));
         this.parent = parent;
         BodyFactory bFact = BodyFactory.getInstance(parent.world);
-        this.b2body = bFact.makeCirclePolyBody(posx,posy,2,BodyFactory.FIXTURE_TYPE.STONE);
+        this.b2body = bFact.makeAsteroidBody(posx,posy,2,BodyFactory.FIXTURE_TYPE.STONE,
+                BodyDef.BodyType.DynamicBody, false, this);
         setBounds(b2body.getPosition().x, b2body.getPosition().y, 4, 4);
         setPosition(b2body.getPosition().x, b2body.getPosition().y);
     }

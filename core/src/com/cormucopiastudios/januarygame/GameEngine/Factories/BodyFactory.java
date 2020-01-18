@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.cormucopiastudios.januarygame.GameEngine.GameClass;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 
 public class BodyFactory {
 
@@ -86,7 +88,24 @@ public class BodyFactory {
         Body newBod = world.createBody(bdef);
         CircleShape shape = new CircleShape();
         shape.setRadius(radius / 2);
-        newBod.createFixture(makeFixture(mat, shape));
+        newBod.createFixture(makeFixture(mat, shape)).setUserData(Asteroid.class);
+        shape.dispose();
+        return newBod;
+    }
+
+    public Body makeAsteroidBody(float posx, float posy, float radius, FIXTURE_TYPE mat,
+                                 BodyDef.BodyType bodyType, boolean fixedRotation, Asteroid parent) {
+        BodyDef bdef = new BodyDef();
+        bdef.type = bodyType;
+        bdef.position.x = posx;
+        bdef.position.y = posy;
+        bdef.fixedRotation = fixedRotation;
+
+        // create body for the def yo
+        Body newBod = world.createBody(bdef);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(radius / 2);
+        newBod.createFixture(makeFixture(mat, shape)).setUserData(parent);
         shape.dispose();
         return newBod;
     }
@@ -117,7 +136,26 @@ public class BodyFactory {
         Body box = world.createBody(bdef);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width/2,height/2);
-        box.createFixture(makeFixture(mat,shape));
+        box.createFixture(makeFixture(mat,shape)).setUserData(Player.class);
+        shape.dispose();
+        return box;
+
+    }
+
+    public Body makePlayerBody(float posx, float posy, float width, float height, FIXTURE_TYPE mat,
+                               BodyDef.BodyType bodyType, boolean fixedRotation, Player parent) {
+        // create bdef
+        BodyDef bdef = new BodyDef();
+        bdef.type = bodyType;
+        bdef.position.x = posx;
+        bdef.position.y = posy;
+        bdef.fixedRotation = fixedRotation;
+
+        // create new bod to attach bdefff
+        Body box = world.createBody(bdef);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(width/2,height/2);
+        box.createFixture(makeFixture(mat,shape)).setUserData(parent);
         shape.dispose();
         return box;
 

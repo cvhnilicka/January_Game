@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.B2ContactListener;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
@@ -58,6 +59,10 @@ public class B2Model {
         createAsteroids();
         world.setContactListener(new B2ContactListener(this));
 
+    }
+
+    public void saveScore() {
+        DataController.getInstance().saveScore(this.score);
     }
 
     public B2AssetManager getAss() {

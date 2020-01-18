@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.KeyboardController;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.Views.Hud;
@@ -69,15 +70,12 @@ public class PlayScreen implements Screen {
     private void drawBackground(Batch batch){
         if (backgroundSprites[0].getY() < -(3*gamecam.viewportHeight/2)) {
             backgroundSprites[0].setPosition(backgroundSprites[0].getX(), backgroundSprites[2].getY()+gamecam.viewportHeight);
-            Gdx.app.log("Background Sprite[0] : Switch", String.valueOf(backgroundSprites[0].getY()));
         }
         if (backgroundSprites[1].getY() < -(3*gamecam.viewportHeight/2)) {
             backgroundSprites[1].setPosition(backgroundSprites[1].getX(), backgroundSprites[0].getY()+gamecam.viewportHeight);
-            Gdx.app.log("Background Sprite[1] : Switch", String.valueOf(backgroundSprites[1].getY()));
         }
         if (backgroundSprites[2].getY() < -(3*gamecam.viewportHeight/2)) {
             backgroundSprites[2].setPosition(backgroundSprites[2].getX(), backgroundSprites[1].getY()+gamecam.viewportHeight);
-            Gdx.app.log("Background Sprite[2] : Switch", String.valueOf(backgroundSprites[2].getY()));
         }
         for (int i = 0; i < backgroundSprites.length; i++) {
             backgroundSprites[i].draw(batch);
