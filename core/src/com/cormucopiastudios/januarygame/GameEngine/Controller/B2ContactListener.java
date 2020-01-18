@@ -1,10 +1,14 @@
 package com.cormucopiastudios.januarygame.GameEngine.Controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.cormucopiastudios.januarygame.GameEngine.B2Model;
+import com.cormucopiastudios.januarygame.GameEngine.GameClass;
+import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 
 public class B2ContactListener implements ContactListener {
 
@@ -14,10 +18,33 @@ public class B2ContactListener implements ContactListener {
         this.parent = parent;
     }
 
-
     @Override
     public void beginContact(Contact contact) {
+        // begin to collide
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
 
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+        switch (cDef) {
+            case GameClass
+                    .PLAYER_BIT | GameClass.ASTEROID_BIT:
+                // here i basically want to set a rebound force and apply it to the player
+
+
+
+                // also want to save data
+                this.parent.saveScore();
+            Gdx.app.exit();
+
+
+//                if (fixA.getFilterData().categoryBits == GameClass.PLAYER_BIT) {
+//                    // fixA is player
+//                    ((Player)fixA.getUserData()).bounceDown();
+//                } else {
+//                    ((Player)fixB.getUserData()).bounceDown();
+//                }
+
+        }
     }
 
     @Override

@@ -67,7 +67,7 @@ public class Hud implements Disposable {
         if (score == 0) {
             return;
         }
-        Gdx.app.log("HUD : Update Score", String.valueOf(score));
+//        Gdx.app.log("HUD : Update Score", String.valueOf(score));
         this.score = score;
         LinkedList<Integer> digits = new LinkedList<>();
         while(score > 0) {
@@ -77,17 +77,16 @@ public class Hud implements Disposable {
 
         int pad = 4-digits.size();
         Collections.reverse(digits);
-        Gdx.app.log("Digits size", String.valueOf(digits.size()));
-        Gdx.app.log("Pad size", String.valueOf(pad));
+//        Gdx.app.log("Digits size", String.valueOf(digits.size()));
+//        Gdx.app.log("Pad size", String.valueOf(pad));
         int i = 4-pad;
-        Gdx.app.log("digits", String.valueOf(digits));
+//        Gdx.app.log("digits", String.valueOf(digits));
         while(!digits.isEmpty()) {
-            Gdx.app.log("Setting Postiion X to POP", String.valueOf(i-1));
+//            Gdx.app.log("Setting Postiion X to POP", String.valueOf(i-1));
             switch (digits.pop()) {
                 case 1:
                 scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
                         .manager.get(parent.getAssMan().one))));
-                Gdx.app.log("FUCK", "SET 111111111111");
                     break;
                 case 2: scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
                         .manager.get(parent.getAssMan().two))));
