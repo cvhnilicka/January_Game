@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
+import com.cormucopiastudios.januarygame.Views.Leaderboard;
 import com.cormucopiastudios.januarygame.Views.LoadingScreen;
 import com.cormucopiastudios.januarygame.Views.Menu;
 
@@ -25,6 +26,9 @@ public class JanuaryGame extends Game {
 
 	private GameClass game;
 	public final static int GAME = 2;
+
+	private Leaderboard leaderboard;
+	public final static int LEADERBOARD = 3;
 	
 	@Override
 	public void create () {
@@ -44,6 +48,9 @@ public class JanuaryGame extends Game {
 						this.setScreen(menu);
 						break;
 			case GAME: if (game == null) game = new GameClass(this);
+			break;
+			case LEADERBOARD: if (leaderboard == null) leaderboard = new Leaderboard(this);
+			this.setScreen(leaderboard);
 		}
 	}
 
