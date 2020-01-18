@@ -10,16 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Hud implements Disposable {
 
@@ -38,39 +37,34 @@ public class Hud implements Disposable {
                 parent.getGamecam().viewportHeight, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
+
         Table table = new Table();
         table.top();
         table.setFillParent(true);  // this table now is the size of the page (parent)
         scoreSetup();
-        table.add(scoreImages[3]).expandX().padTop(5);
-        table.add(scoreImages[2]).expandX().padTop(5);
-        table.add(scoreImages[1]).expandX().padTop(5);
-        table.add(scoreImages[0]).expandX().padTop(5);
+        table.add(scoreImages[3]).expandX();
+        table.add(scoreImages[2]).expandX();
+        table.add(scoreImages[1]).expandX();
+        table.add(scoreImages[0]).expandX();
 
         stage.addActor(table);
     }
 
     private void scoreSetup() {
         scoreImages = new Image[4];
-        scoreImages[0] = new Image();
-        scoreImages[1] = new Image();
-        scoreImages[2] = new Image();
-        scoreImages[3] = new Image();
+        for (int i = 0; i < scoreImages.length; i++) {
+            scoreImages[i] = new Image((Texture)parent.getAssMan()
+                    .manager.get(parent.getAssMan().zero));
+            scoreImages[i].setBounds(scoreImages[0].getX(), scoreImages[0].getY(), 4,4);
+            scoreImages[i].setScale(0.3f);
+        }
+
         this.score = 0;
-        this.updateScore(0);
+
     }
 
     public void updateScore(int score) {
-
         if (score == 0) {
-            scoreImages[0] = new Image((Texture)parent.getAssMan()
-                    .manager.get(parent.getAssMan().zero));
-            scoreImages[1] = new Image((Texture)parent.getAssMan()
-                    .manager.get(parent.getAssMan().zero));
-            scoreImages[2] = new Image((Texture)parent.getAssMan()
-                    .manager.get(parent.getAssMan().zero));
-            scoreImages[3] = new Image((Texture)parent.getAssMan()
-                    .manager.get(parent.getAssMan().zero));
             return;
         }
         Gdx.app.log("HUD : Update Score", String.valueOf(score));
@@ -83,13 +77,6 @@ public class Hud implements Disposable {
 
         int pad = 4-digits.size();
         Collections.reverse(digits);
-//        if (digits.size() < 4) {
-//            for (int j = 0; j < pad; j++) {
-//                Gdx.app.log("Setting X position to Zero: ", String.valueOf(3-j));
-//                scoreImages[3-j] = new Image((Texture)parent.getAssMan()
-//                        .manager.get(parent.getAssMan().zero));
-//            }
-//        }
         Gdx.app.log("Digits size", String.valueOf(digits.size()));
         Gdx.app.log("Pad size", String.valueOf(pad));
         int i = 4-pad;
