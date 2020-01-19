@@ -3,73 +3,44 @@ package com.cormucopiastudios.januarygame.Views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
-public class Menu implements Screen {
+public class Leaderboard implements Screen {
+
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
 
-    public Menu(JanuaryGame parent) {
+    public Leaderboard(JanuaryGame parent) {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
     }
 
     @Override
     public void show() {
-        // set input
-        Gdx.input.setInputProcessor(stage);
 
         // create table menu
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
-
-//        skin = new Skin(Gdx.files.internal("skin/glassyui/glassy-ui.json"));
         skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
-//        skin = new Skin(Gdx.files.internal("skin/neutralizer/neutralizer-ui.json"));
+        addEntries(table);
 
-        // create and add buttons
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton leaderboard = new TextButton("Leaderboard", skin);
-        TextButton exit = new TextButton("Exit", skin);
+    }
 
-        table.add(newGame).fillX().uniform();
-        table.row().pad(10,0,10,0);
-        table.add(leaderboard).fillX().uniform();
-        table.row().pad(10,0,10,0);
-        table.add(exit).fillX().uniform();
-
-
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(JanuaryGame.GAME);
-            }
-        });
-
-        leaderboard.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                parent.changeScreen(JanuaryGame.LEADERBOARD);
-            }
-        });
-
-        exit.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-            }
-        });
-
+    private void addEntries(Table table) {
+        for(String key: DataController.getInstance().getLeaderBoard().get().keySet()){
+            TextButton n = new TextButton(key + "  ::  " + DataController.getInstance().getLeaderBoard().getString(key), skin);
+            table.add(n);
+            table.row();
+        }
     }
 
     @Override
@@ -85,8 +56,7 @@ public class Menu implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        // update the stage (scene) described above to fit the new resized window
-        stage.getViewport().update(width,height, true);
+
     }
 
     @Override
