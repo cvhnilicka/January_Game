@@ -27,19 +27,27 @@ public class Leaderboard implements Screen {
 
     @Override
     public void show() {
+        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
+        Table returnTable = new Table();
+        returnTable.setDebug(true);
+        TextButton returnButton = new TextButton("Return", skin);
+        returnButton.top();
+        returnButton.setBounds(0,stage.getHeight()-returnButton.getHeight(),returnButton.getWidth(),returnButton.getHeight());
+//        returnTable.top();
+//        returnTable.add(returnButton).expandX().uniform();
+//        returnTable.row();
+
+        stage.addActor(returnButton);
 
         // create table menu
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
-        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
 
 
-        TextButton returnButton = new TextButton("Return", skin);
 
-        table.add(returnButton).expandX().uniform();
-        table.row();
+
 
         returnButton.addListener(new ChangeListener() {
             @Override
