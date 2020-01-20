@@ -16,16 +16,16 @@ public class B2AssetManager {
     public final String flameAsteroid = "flaming_asteroid.png";
 
     // numbers
-    public final String one = "Numbers/one.png";
-    public final String two = "Numbers/two.png";
-    public final String three = "Numbers/three.png";
-    public final String four = "Numbers/four.png";
-    public final String five = "Numbers/five.png";
-    public final String six = "Numbers/six.png";
-    public final String seven = "Numbers/seven.png";
-    public final String eight = "Numbers/eight.png";
-    public final String nine = "Numbers/nine.png";
-    public final String zero = "Numbers/zero.png";
+    public final String one = "Numbers/one_norm.png";
+    public final String two = "Numbers/two_norm.png";
+    public final String three = "Numbers/three_norm.png";
+    public final String four = "Numbers/four_norm.png";
+    public final String five = "Numbers/five_norm.png";
+    public final String six = "Numbers/six_norm.png";
+    public final String seven = "Numbers/seven_norm.png";
+    public final String eight = "Numbers/eight_norm.png";
+    public final String nine = "Numbers/nine_norm.png";
+    public final String zero = "Numbers/zero_norm.png";
 
 
     public void queueAddImages() {
