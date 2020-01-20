@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,14 +40,25 @@ public class Hud implements Disposable {
 
 
         Table table = new Table();
+        table.setDebug(true);
         table.top();
-        table.setFillParent(true);  // this table now is the size of the page (parent)
+//        table.setFillParent(true);  // this table now is the size of the page (parent)
         scoreSetup();
+        table.setHeight(2f);
         table.add(scoreImages[3]).expandX();
         table.add(scoreImages[2]).expandX();
         table.add(scoreImages[1]).expandX();
         table.add(scoreImages[0]).expandX();
-
+        table.row();
+//        Gdx.app.log("HUD - viewport.getWorldHeight()", String.valueOf(viewport.getWorldHeight()));
+//        Gdx.app.log("HUD - table.getHeight()", String.valueOf(table.getHeight()));
+//        Gdx.app.log("HUD - table.getHeight()", String.valueOf(table.getRowHeight(0)));
+//        Gdx.app.log("HUD - scoreImages[0].getHeight()", String.valueOf(scoreImages[0].getHeight()));
+//        Gdx.app.log("HUD - viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight()", String.valueOf(viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight()));
+        table.setBounds(0,viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight(),
+                viewport.getWorldWidth(), 3);
+        table.align(Align.center);
+//        table.setPosition(0, viewport.getScreenHeight()-table.getHeight());
         stage.addActor(table);
     }
 
@@ -55,8 +67,15 @@ public class Hud implements Disposable {
         for (int i = 0; i < scoreImages.length; i++) {
             scoreImages[i] = new Image((Texture)parent.getAssMan()
                     .manager.get(parent.getAssMan().zero));
-            scoreImages[i].setBounds(scoreImages[0].getX(), scoreImages[0].getY(), 4,4);
-            scoreImages[i].setScale(0.3f);
+            scoreImages[i].setHeight(3f);
+            scoreImages[i].setWidth(1f);
+//            scoreImages[i].setScale(.25f);
+            scoreImages[i].setDebug(true);
+//            scoreImages[i].setBounds(scoreImages[0].getX(),
+//                    viewport.getWorldHeight()-4,
+//                    4,4);
+//            scoreImages[i].
+//            scoreImages[i].setScale(0.3f);
         }
 
         this.score = 0;
