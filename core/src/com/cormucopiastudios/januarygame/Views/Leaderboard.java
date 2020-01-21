@@ -3,15 +3,20 @@ package com.cormucopiastudios.januarygame.Views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
+import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
 public class Leaderboard implements Screen {
@@ -28,10 +33,16 @@ public class Leaderboard implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
         Table returnTable = new Table();
         returnTable.setDebug(true);
-        TextButton returnButton = new TextButton("Return", skin);
+        ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
+                new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
+        returnButton.setDebug(true);
+        returnButton.setWidth(stage.getWidth()/6);
+        returnButton.setHeight(stage.getHeight()/6);
+//        TextButton returnButton = new TextButton("Return", skin);
         returnButton.top();
         returnButton.setBounds(0,stage.getHeight()-returnButton.getHeight(),returnButton.getWidth(),returnButton.getHeight());
 //        returnTable.top();

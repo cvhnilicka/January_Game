@@ -33,6 +33,7 @@ public class B2AssetManager {
     public final String newgame = "buttons/newgame.png";
     public final String leaderboard = "buttons/leaderboard.png";
     public final String exit = "buttons/exit.png";
+    public final String returnButton = "buttons/return.png";
 
 
     public void queueAddImages() {
@@ -60,6 +61,7 @@ public class B2AssetManager {
         manager.load(newgame, Texture.class);
         manager.load(leaderboard, Texture.class);
         manager.load(exit, Texture.class);
+        manager.load(returnButton, Texture.class);
     }
 
 }
