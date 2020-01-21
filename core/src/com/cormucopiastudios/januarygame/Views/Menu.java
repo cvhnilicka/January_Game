@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
 public class Menu implements Screen {
@@ -37,6 +39,7 @@ public class Menu implements Screen {
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
+        table.setBounds(0,0, GameClass.V_WITDH, GameClass.V_HEIGHT/2);
         stage.addActor(table);
 
 //        skin = new Skin(Gdx.files.internal("skin/glassyui/glassy-ui.json"));
@@ -51,12 +54,16 @@ public class Menu implements Screen {
         ImageButton newGame = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.newgame))) );
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))) );
         ImageButton exit = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
+        newGame.setScale(0.25f);
+        leaderboard.setScale(0.25f);
+        exit.setScale(0.25f);
 
-        table.add(newGame).fillX().uniform();
+
+        table.add(newGame).height(Value.percentHeight(0.30f, table));
         table.row().pad(10,0,10,0);
-        table.add(leaderboard).fillX().uniform();
+        table.add(leaderboard).height(Value.percentHeight(0.30f, table));
         table.row().pad(10,0,10,0);
-        table.add(exit).fillX().uniform();
+        table.add(exit).height(Value.percentHeight(0.30f, table));
 
 
         newGame.addListener(new ChangeListener() {
