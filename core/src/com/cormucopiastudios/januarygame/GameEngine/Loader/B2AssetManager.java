@@ -43,6 +43,18 @@ public class B2AssetManager {
         manager.load(rightWall, Texture.class);
         manager.load(flameAsteroid, Texture.class);
 
+
+
+    }
+
+    public void queueMenuButtons(){
+        manager.load(background, Texture.class);
+        manager.load(newgame, Texture.class);
+        manager.load(leaderboard, Texture.class);
+        manager.load(exit, Texture.class);
+        manager.load(returnButton, Texture.class);
+
+
         manager.load(one, Texture.class);
         manager.load(two, Texture.class);
         manager.load(three, Texture.class);
@@ -53,15 +65,6 @@ public class B2AssetManager {
         manager.load(eight, Texture.class);
         manager.load(nine, Texture.class);
         manager.load(zero, Texture.class);
-
-    }
-
-    public void queueMenuButtons(){
-        manager.load(background, Texture.class);
-        manager.load(newgame, Texture.class);
-        manager.load(leaderboard, Texture.class);
-        manager.load(exit, Texture.class);
-        manager.load(returnButton, Texture.class);
     }
 
 }

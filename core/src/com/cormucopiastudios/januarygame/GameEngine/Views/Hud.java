@@ -50,15 +50,9 @@ public class Hud implements Disposable {
         table.add(scoreImages[1]).expandX();
         table.add(scoreImages[0]).expandX();
         table.row();
-//        Gdx.app.log("HUD - viewport.getWorldHeight()", String.valueOf(viewport.getWorldHeight()));
-//        Gdx.app.log("HUD - table.getHeight()", String.valueOf(table.getHeight()));
-//        Gdx.app.log("HUD - table.getHeight()", String.valueOf(table.getRowHeight(0)));
-//        Gdx.app.log("HUD - scoreImages[0].getHeight()", String.valueOf(scoreImages[0].getHeight()));
-//        Gdx.app.log("HUD - viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight()", String.valueOf(viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight()));
         table.setBounds(0,viewport.getWorldHeight()-table.getHeight()-scoreImages[0].getHeight(),
                 viewport.getWorldWidth(), 3);
         table.align(Align.center);
-//        table.setPosition(0, viewport.getScreenHeight()-table.getHeight());
         stage.addActor(table);
     }
 
@@ -69,13 +63,7 @@ public class Hud implements Disposable {
                     .manager.get(parent.getAssMan().zero));
             scoreImages[i].setHeight(3f);
             scoreImages[i].setWidth(1f);
-//            scoreImages[i].setScale(.25f);
             scoreImages[i].setDebug(true);
-//            scoreImages[i].setBounds(scoreImages[0].getX(),
-//                    viewport.getWorldHeight()-4,
-//                    4,4);
-//            scoreImages[i].
-//            scoreImages[i].setScale(0.3f);
         }
 
         this.score = 0;
@@ -96,12 +84,9 @@ public class Hud implements Disposable {
 
         int pad = 4-digits.size();
         Collections.reverse(digits);
-//        Gdx.app.log("Digits size", String.valueOf(digits.size()));
-//        Gdx.app.log("Pad size", String.valueOf(pad));
+
         int i = 4-pad;
-//        Gdx.app.log("digits", String.valueOf(digits));
         while(!digits.isEmpty()) {
-//            Gdx.app.log("Setting Postiion X to POP", String.valueOf(i-1));
             switch (digits.pop()) {
                 case 1:
                 scoreImages[i-1].setDrawable(new SpriteDrawable(new Sprite((Texture)parent.getAssMan()
