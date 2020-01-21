@@ -32,6 +32,8 @@ public class JanuaryGame extends Game {
 	
 	@Override
 	public void create () {
+		assMan.queueMenuButtons();
+		assMan.manager.finishLoading();
 		loadingScreen = new LoadingScreen(this);
 		setScreen(loadingScreen);
 	}

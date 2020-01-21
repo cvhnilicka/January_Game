@@ -2,6 +2,8 @@ package com.cormucopiastudios.januarygame.GameEngine.Loader;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class B2AssetManager {
 
@@ -27,13 +29,17 @@ public class B2AssetManager {
     public final String nine = "Numbers/nine_norm.png";
     public final String zero = "Numbers/zero_norm.png";
 
+    // buttons
+    public final String newgame = "buttons/newgame.png";
+    public final String leaderboard = "buttons/leaderboard.png";
+    public final String exit = "buttons/exit.png";
+
 
     public void queueAddImages() {
         manager.load(player, Texture.class);
         manager.load(asteroid, Texture.class);
         manager.load(leftWall, Texture.class);
         manager.load(rightWall, Texture.class);
-        manager.load(background, Texture.class);
         manager.load(flameAsteroid, Texture.class);
 
         manager.load(one, Texture.class);
@@ -46,6 +52,14 @@ public class B2AssetManager {
         manager.load(eight, Texture.class);
         manager.load(nine, Texture.class);
         manager.load(zero, Texture.class);
+
+    }
+
+    public void queueMenuButtons(){
+        manager.load(background, Texture.class);
+        manager.load(newgame, Texture.class);
+        manager.load(leaderboard, Texture.class);
+        manager.load(exit, Texture.class);
     }
 
 }
