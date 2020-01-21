@@ -42,22 +42,12 @@ public class Menu implements Screen {
         table.setBounds(0,0, GameClass.V_WITDH, GameClass.V_HEIGHT/2);
         stage.addActor(table);
 
-//        skin = new Skin(Gdx.files.internal("skin/glassyui/glassy-ui.json"));
         skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
-//        skin = new Skin(Gdx.files.internal("skin/neutralizer/neutralizer-ui.json"));
 
-        // create and add buttons
-//        TextButton newGame = new TextButton("New Game", skin);
-//        TextButton leaderboard = new TextButton("Leaderboard", skin);
-//        TextButton exit = new TextButton("Exit", skin);
-
+        // make image buttons
         ImageButton newGame = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.newgame))) );
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))) );
         ImageButton exit = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
-//        newGame.setScale(0.25f);
-//        leaderboard.setScale(0.25f);
-//        exit.setScale(0.25f);
-//
 
         table.add(newGame).height(Value.percentHeight(0.30f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
