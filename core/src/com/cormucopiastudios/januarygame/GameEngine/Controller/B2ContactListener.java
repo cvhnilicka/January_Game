@@ -37,13 +37,6 @@ public class B2ContactListener implements ContactListener {
             Gdx.app.exit();
 
 
-//                if (fixA.getFilterData().categoryBits == GameClass.PLAYER_BIT) {
-//                    // fixA is player
-//                    ((Player)fixA.getUserData()).bounceDown();
-//                } else {
-//                    ((Player)fixB.getUserData()).bounceDown();
-//                }
-
         }
     }
 
