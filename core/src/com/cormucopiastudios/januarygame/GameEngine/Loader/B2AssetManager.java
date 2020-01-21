@@ -40,7 +40,6 @@ public class B2AssetManager {
         manager.load(asteroid, Texture.class);
         manager.load(leftWall, Texture.class);
         manager.load(rightWall, Texture.class);
-        manager.load(background, Texture.class);
         manager.load(flameAsteroid, Texture.class);
 
         manager.load(one, Texture.class);
@@ -57,6 +56,7 @@ public class B2AssetManager {
     }
 
     public void queueMenuButtons(){
+        manager.load(background, Texture.class);
         manager.load(newgame, Texture.class);
         manager.load(leaderboard, Texture.class);
         manager.load(exit, Texture.class);

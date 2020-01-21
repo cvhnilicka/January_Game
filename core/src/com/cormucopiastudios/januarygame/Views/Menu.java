@@ -54,16 +54,16 @@ public class Menu implements Screen {
         ImageButton newGame = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.newgame))) );
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))) );
         ImageButton exit = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
-        newGame.setScale(0.25f);
-        leaderboard.setScale(0.25f);
-        exit.setScale(0.25f);
+//        newGame.setScale(0.25f);
+//        leaderboard.setScale(0.25f);
+//        exit.setScale(0.25f);
+//
 
-
-        table.add(newGame).height(Value.percentHeight(0.30f, table));
+        table.add(newGame).height(Value.percentHeight(0.30f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(leaderboard).height(Value.percentHeight(0.30f, table));
+        table.add(leaderboard).height(Value.percentHeight(0.30f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(exit).height(Value.percentHeight(0.30f, table));
+        table.add(exit).height(Value.percentHeight(0.30f, table)).fillX().uniform();
 
 
         newGame.addListener(new ChangeListener() {
