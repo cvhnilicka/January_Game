@@ -12,6 +12,7 @@ import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
 import com.cormucopiastudios.januarygame.Views.Leaderboard;
 import com.cormucopiastudios.januarygame.Views.LoadingScreen;
 import com.cormucopiastudios.januarygame.Views.Menu;
+import com.cormucopiastudios.januarygame.Views.PreferencesScreen;
 
 public class JanuaryGame extends Game {
 
@@ -29,6 +30,9 @@ public class JanuaryGame extends Game {
 
 	private Leaderboard leaderboard;
 	public final static int LEADERBOARD = 3;
+
+	private PreferencesScreen preferences;
+	public final static int PREFERENCES = 4;
 	
 	@Override
 	public void create () {
@@ -53,6 +57,10 @@ public class JanuaryGame extends Game {
 			break;
 			case LEADERBOARD: if (leaderboard == null) leaderboard = new Leaderboard(this);
 			this.setScreen(leaderboard);
+			break;
+			case PREFERENCES: if (preferences == null) preferences = new PreferencesScreen(this);
+			this.setScreen(preferences);
+			break;
 		}
 	}
 

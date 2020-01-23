@@ -40,8 +40,6 @@ public class B2AssetManager {
 
     public void queueAddImages() {
         manager.load(player, Texture.class);
-        manager.load(whiteShip, Texture.class);
-        manager.load(redShip, Texture.class);
         manager.load(asteroid, Texture.class);
         manager.load(leftWall, Texture.class);
         manager.load(rightWall, Texture.class);
@@ -69,6 +67,9 @@ public class B2AssetManager {
         manager.load(eight, Texture.class);
         manager.load(nine, Texture.class);
         manager.load(zero, Texture.class);
+
+        manager.load(whiteShip, Texture.class);
+        manager.load(redShip, Texture.class);
     }
 
 }

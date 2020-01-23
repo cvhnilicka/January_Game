@@ -49,11 +49,18 @@ public class Menu implements Screen {
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))) );
         ImageButton exit = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
 
-        table.add(newGame).height(Value.percentHeight(0.30f, table)).fillX().uniform();
+
+        // tmp
+        TextButton preferences = new TextButton("Preferences", skin);
+
+
+        table.add(newGame).height(Value.percentHeight(0.25f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(leaderboard).height(Value.percentHeight(0.30f, table)).fillX().uniform();
+        table.add(leaderboard).height(Value.percentHeight(0.25f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(exit).height(Value.percentHeight(0.30f, table)).fillX().uniform();
+        table.add(preferences).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        table.row().pad(10,0,10,0);
+        table.add(exit).height(Value.percentHeight(0.25f, table)).fillX().uniform();
 
 
         newGame.addListener(new ChangeListener() {
@@ -67,6 +74,13 @@ public class Menu implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(JanuaryGame.LEADERBOARD);
+            }
+        });
+
+        preferences.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(JanuaryGame.PREFERENCES);
             }
         });
 
