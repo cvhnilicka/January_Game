@@ -19,7 +19,7 @@ public class Player extends Sprite {
 
 
     public Player(B2Model parent) {
-        super((Texture)parent.getAss().manager.get(parent.getAss().player));
+        super((Texture)parent.getAss().manager.get(parent.getAss().whiteShip));
         this.parent = parent;
         texture = parent.getAss().manager.get(parent.getAss().player);
         BodyFactory bFact = BodyFactory.getInstance(parent.world);
