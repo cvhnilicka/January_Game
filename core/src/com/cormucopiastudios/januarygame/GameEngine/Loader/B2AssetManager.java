@@ -10,7 +10,9 @@ public class B2AssetManager {
     public final AssetManager manager = new AssetManager();
 
     // player
-    public final String player = "shiptotal.png";
+    public final String player = "whiteShip.png";
+    public final String whiteShip = "whiteShip.png";
+    public final String redShip = "redShip.png";
     public final String asteroid = "asteroid.png";
     public final String leftWall = "LeftRocks.png";
     public final String rightWall = "RightRocks.png";
@@ -38,6 +40,8 @@ public class B2AssetManager {
 
     public void queueAddImages() {
         manager.load(player, Texture.class);
+        manager.load(whiteShip, Texture.class);
+        manager.load(redShip, Texture.class);
         manager.load(asteroid, Texture.class);
         manager.load(leftWall, Texture.class);
         manager.load(rightWall, Texture.class);
