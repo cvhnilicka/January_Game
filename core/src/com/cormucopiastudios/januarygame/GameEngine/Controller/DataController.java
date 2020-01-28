@@ -41,4 +41,14 @@ public class DataController {
         leaderBoard.flush();
         Gdx.app.log("DataController", "Saved " + leaderBoard.getString(String.valueOf(index)));
     }
+
+    public String getNamePref() {
+        return prefs.getString("namepref");
+    }
+
+    public void saveName(String name) {
+        prefs.putString("namepref", name);
+        prefs.flush();
+        Gdx.app.log("DataController - Prefs [name]", "Saved name : " + name);
+    }
 }
