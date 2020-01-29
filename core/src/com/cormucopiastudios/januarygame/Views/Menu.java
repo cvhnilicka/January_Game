@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,6 +25,8 @@ public class Menu implements Screen {
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
+    private Sprite background;
+    private Image backgroundImage;
 
     public Menu(JanuaryGame parent) {
         this.parent = parent;
@@ -35,6 +38,7 @@ public class Menu implements Screen {
         stage.clear();
         // set input
         Gdx.input.setInputProcessor(stage);
+        backgroundSetUp();
 
         // create table menu
         Table table = new Table();
@@ -49,19 +53,19 @@ public class Menu implements Screen {
         ImageButton newGame = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.newgame))) );
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))) );
         ImageButton exit = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
-
+        ImageButton preferences = new ImageButton(new TextureRegionDrawable(new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.preferences))));
 
         // tmp
-        TextButton preferences = new TextButton("Preferences", skin);
+//        TextButton preferences = new TextButton("Preferences", skin);
 
 
-        table.add(newGame).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        table.add(newGame).height(Value.percentHeight(0.20f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(leaderboard).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        table.add(leaderboard).height(Value.percentHeight(0.20f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(preferences).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        table.add(preferences).height(Value.percentHeight(0.20f, table)).fillX().uniform();
         table.row().pad(10,0,10,0);
-        table.add(exit).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        table.add(exit).height(Value.percentHeight(0.20f, table)).fillX().uniform();
 
 
         newGame.addListener(new ChangeListener() {
@@ -94,6 +98,15 @@ public class Menu implements Screen {
 
     }
 
+    private void backgroundSetUp() {
+//        background = new Sprite((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
+//        background.setBounds(0,0,stage.getWidth(), stage.getHeight());
+
+        backgroundImage = new Image((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
+        backgroundImage.setBounds(0,0,stage.getWidth(),stage.getHeight());
+        stage.addActor(backgroundImage);
+    }
+
     @Override
     public void render(float delta) {
         // first, we should clear the image before drawing the next one,
@@ -102,7 +115,9 @@ public class Menu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // Actually render the scene you described in the show() method above.
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+//        background.draw(stage.getBatch());
         stage.draw();
+
     }
 
     @Override

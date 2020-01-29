@@ -54,15 +54,15 @@ public class PlayScreen implements Screen {
 
     private void backgroundSetUp() {
         backgroundSprites = new Sprite[3];
-        backgroundSprites[0] = new Sprite((Texture)assMan.manager.get(assMan.background));
+        backgroundSprites[0] = new Sprite((Texture)assMan.manager.get(assMan.star_background));
         backgroundSprites[0].setBounds(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2,gamecam.viewportWidth,gamecam.viewportHeight);
         backgroundSprites[0].setPosition(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2);
 
-        backgroundSprites[1] = new Sprite((Texture)assMan.manager.get(assMan.background));
+        backgroundSprites[1] = new Sprite((Texture)assMan.manager.get(assMan.star_background));
         backgroundSprites[1].setBounds(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2,gamecam.viewportWidth,gamecam.viewportHeight);
         backgroundSprites[1].setPosition(-gamecam.viewportWidth/2,backgroundSprites[0].getY()+gamecam.viewportHeight);
 
-        backgroundSprites[2] = new Sprite((Texture)assMan.manager.get(assMan.background));
+        backgroundSprites[2] = new Sprite((Texture)assMan.manager.get(assMan.star_background));
         backgroundSprites[2].setBounds(-gamecam.viewportWidth/2,-gamecam.viewportHeight/2,gamecam.viewportWidth,gamecam.viewportHeight);
         backgroundSprites[2].setPosition(-gamecam.viewportWidth/2,backgroundSprites[1].getY()+gamecam.viewportHeight);
     }

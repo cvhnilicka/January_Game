@@ -16,7 +16,8 @@ public class B2AssetManager {
     public final String asteroid = "asteroid.png";
     public final String leftWall = "LeftRocks.png";
     public final String rightWall = "RightRocks.png";
-    public final String background = "star_background1.png";
+    public final String star_background = "star_background1.png";
+    public final String plain_background = "background.png";
     public final String flameAsteroid = "flaming_asteroid.png";
 
     // numbers
@@ -36,6 +37,7 @@ public class B2AssetManager {
     public final String leaderboard = "buttons/leaderboard.png";
     public final String exit = "buttons/exit.png";
     public final String returnButton = "buttons/return.png";
+    public final String preferences = "buttons/preferences.png";
 
 
     public void queueAddImages() {
@@ -50,11 +52,13 @@ public class B2AssetManager {
     }
 
     public void queueMenuButtons(){
-        manager.load(background, Texture.class);
+        manager.load(star_background, Texture.class);
+        manager.load(plain_background, Texture.class);
         manager.load(newgame, Texture.class);
         manager.load(leaderboard, Texture.class);
         manager.load(exit, Texture.class);
         manager.load(returnButton, Texture.class);
+        manager.load(preferences, Texture.class);
 
 
         manager.load(one, Texture.class);
