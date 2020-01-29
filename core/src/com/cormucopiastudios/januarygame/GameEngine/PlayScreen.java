@@ -84,6 +84,10 @@ public class PlayScreen implements Screen {
 
     }
 
+    public void setParentScreen(int screen) {
+        this.game.getParent().changeScreen(screen);
+    }
+
     public OrthographicCamera getGamecam() { return gamecam; }
 
     public KeyboardController getController() { return this.controller; }
@@ -94,6 +98,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
+
         Gdx.input.setInputProcessor(controller);
     }
 
