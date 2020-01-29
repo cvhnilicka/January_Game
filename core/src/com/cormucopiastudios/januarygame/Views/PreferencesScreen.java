@@ -31,14 +31,38 @@ public class PreferencesScreen implements Screen {
     public PreferencesScreen(JanuaryGame parent) {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
+        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
+
     }
 
 
     @Override
     public void show() {
+        stage.clear();
         Gdx.input.setInputProcessor(stage);
 
-        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
+
+
+        // Return Button
+        ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
+                new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
+        returnButton.setDebug(true);
+        returnButton.setWidth(stage.getWidth()/6);
+        returnButton.setHeight(stage.getHeight()/6);
+        returnButton.top();
+        returnButton.setBounds(0,stage.getHeight()-returnButton.getHeight(),returnButton.getWidth(),returnButton.getHeight());
+
+        returnButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(JanuaryGame.MENU);
+            }
+        });
+
+        // End Return Button
+
+
+        stage.addActor(returnButton);
 
         Table table = new Table();
         table.setFillParent(true);
@@ -87,6 +111,7 @@ public class PreferencesScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Ship Pref", "Red Ship");
                 DataController.getInstance().saveShipPref("redShip");
+                shipChoice.clear();
                 shipChoice.setText(prefix+"Red Ship");
             }
         });
@@ -96,6 +121,7 @@ public class PreferencesScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Ship Pref", "White Ship");
                 DataController.getInstance().saveShipPref("whiteShip");
+                shipChoice.clear();
                 shipChoice.setText(prefix+"White Ship");
             }
         });
@@ -171,6 +197,6 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }
