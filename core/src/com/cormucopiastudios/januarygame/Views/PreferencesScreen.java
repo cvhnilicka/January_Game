@@ -57,6 +57,17 @@ public class PreferencesScreen implements Screen {
     private void setUpShips(Table table) {
         Table shipTable = new Table();
 
+        final Label shipChoice;
+        final String prefix = "Current Ship: ";
+
+        if (DataController.getInstance().getShipPref().equals("redShip")) {
+            shipChoice = new Label(prefix+"Red Ship", skin);
+        } else if (DataController.getInstance().getShipPref().equals("whiteShip")) {
+            shipChoice = new Label(prefix+"White Ship", skin);
+        } else {
+            shipChoice =  new Label("Default Ship: White Ship", skin);
+        }
+
 
         ImageButton redShip = new ImageButton(new TextureRegionDrawable(new TextureRegion(
                 (Texture)parent.assMan.manager.get(parent.assMan.redShip))));
@@ -64,6 +75,9 @@ public class PreferencesScreen implements Screen {
         ImageButton whiteShip = new ImageButton(new TextureRegionDrawable(new TextureRegion(
                 (Texture)parent.assMan.manager.get(parent.assMan.whiteShip))));
 
+
+        shipTable.add(shipChoice);
+        shipTable.row();
         shipTable.add(redShip).height(Value.percentHeight(0.1f,table)).width(Value.percentWidth(0.1f,table));
         shipTable.add(whiteShip).height(Value.percentHeight(0.1f,table)).width(Value.percentWidth(0.1f,table));
         shipTable.row();
@@ -73,6 +87,7 @@ public class PreferencesScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Ship Pref", "Red Ship");
                 DataController.getInstance().saveShipPref("redShip");
+                shipChoice.setText(prefix+"Red Ship");
             }
         });
 
@@ -81,6 +96,7 @@ public class PreferencesScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log("Ship Pref", "White Ship");
                 DataController.getInstance().saveShipPref("whiteShip");
+                shipChoice.setText(prefix+"White Ship");
             }
         });
 
