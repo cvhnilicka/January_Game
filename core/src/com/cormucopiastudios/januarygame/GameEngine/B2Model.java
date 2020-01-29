@@ -121,6 +121,8 @@ public class B2Model {
         for (int i = 0; i < STARTING_ASTEROIDS; i++) {
             xPos = ran.nextFloat() * (rightBound - leftBound + 1.0f) + leftBound;
             yPos = ran.nextFloat() * (30 - 15 + 1.0f) + 15;
+//            yPos = ran.nextFloat() * (10 - 5 + 1.0f) + 5;
+
             roids.add(new Asteroid(this, xPos, yPos));
         }
     }

@@ -3,6 +3,7 @@ package com.cormucopiastudios.januarygame.GameEngine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
+import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 import com.cormucopiastudios.januarygame.JanuaryGame;
 
 public class GameClass extends Game {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 import com.cormucopiastudios.januarygame.GameEngine.GameClass;
 import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.PlayScreen;
@@ -58,7 +59,6 @@ public class JanuaryGame extends Game {
 						this.setScreen(menu);
 						break;
 			case GAME:
-				game = null;
 				game = new GameClass(this);
 			break;
 			case LEADERBOARD: if (leaderboard == null) leaderboard = new Leaderboard(this);
