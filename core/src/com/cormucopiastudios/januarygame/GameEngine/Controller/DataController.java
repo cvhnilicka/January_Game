@@ -35,12 +35,21 @@ public class DataController {
         return thisInstance;
     }
 
+
+    /**
+     * Score Information
+     * */
     public void saveScore(int score) {
         int index = this.leaderBoard.get().size();
         leaderBoard.putInteger(String.valueOf(index),score);
         leaderBoard.flush();
         Gdx.app.log("DataController", "Saved " + leaderBoard.getString(String.valueOf(index)));
     }
+
+
+    /**
+     * Name Information
+     * */
 
     public String getNamePref() {
         return prefs.getString("namepref");
@@ -50,5 +59,19 @@ public class DataController {
         prefs.putString("namepref", name);
         prefs.flush();
         Gdx.app.log("DataController - Prefs [name]", "Saved name : " + name);
+    }
+
+    /**
+     * Ship Information
+     * */
+
+    public String getShipPref() {
+        return prefs.getString("shippref");
+    }
+
+    public void saveShipPref(String ship) {
+        prefs.putString("shippref", ship);
+        prefs.flush();
+        Gdx.app.log("DataController - Prefs [name]", "Saved Ship : " + ship);
     }
 }

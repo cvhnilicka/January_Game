@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -14,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
 import com.cormucopiastudios.januarygame.JanuaryGame;
@@ -53,12 +57,33 @@ public class PreferencesScreen implements Screen {
     private void setUpShips(Table table) {
         Table shipTable = new Table();
 
-        Image redShip = new Image((Texture)parent.assMan.manager.get(parent.assMan.redShip));
-        Image whiteShip = new Image((Texture)parent.assMan.manager.get(parent.assMan.whiteShip));
+
+        ImageButton redShip = new ImageButton(new TextureRegionDrawable(new TextureRegion(
+                (Texture)parent.assMan.manager.get(parent.assMan.redShip))));
+
+        ImageButton whiteShip = new ImageButton(new TextureRegionDrawable(new TextureRegion(
+                (Texture)parent.assMan.manager.get(parent.assMan.whiteShip))));
 
         shipTable.add(redShip).height(Value.percentHeight(0.1f,table)).width(Value.percentWidth(0.1f,table));
         shipTable.add(whiteShip).height(Value.percentHeight(0.1f,table)).width(Value.percentWidth(0.1f,table));
         shipTable.row();
+
+        redShip.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Ship Pref", "Red Ship");
+                DataController.getInstance().saveShipPref("redShip");
+            }
+        });
+
+        whiteShip.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Ship Pref", "White Ship");
+                DataController.getInstance().saveShipPref("whiteShip");
+            }
+        });
+
 
 
         table.add(shipTable);
