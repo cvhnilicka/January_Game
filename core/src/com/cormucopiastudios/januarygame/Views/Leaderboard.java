@@ -30,10 +30,12 @@ public class Leaderboard implements Screen {
     public Leaderboard(JanuaryGame parent) {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
+        skin = new Skin(Gdx.files.internal("skin/shade/uiskin.json"));
     }
 
     @Override
     public void show() {
+        stage.clear();
         Gdx.input.setInputProcessor(stage);
         ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
                 new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
@@ -72,6 +74,7 @@ public class Leaderboard implements Screen {
 
         // comment/uncomment for stylaized
         for(String key: DataController.getInstance().getLeaderBoard().get().keySet()){
+//            Gdx.app.log("Add Entries", key);
             TextButton n = new TextButton(key + "  ::  " + DataController.getInstance().getLeaderBoard().getString(key), skin);
             table.add(n);
             table.row();

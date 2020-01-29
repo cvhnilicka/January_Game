@@ -1,5 +1,6 @@
 package com.cormucopiastudios.januarygame.GameEngine.Models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.cormucopiastudios.januarygame.GameEngine.B2Model;
+import com.cormucopiastudios.januarygame.GameEngine.Controller.DataController;
 import com.cormucopiastudios.januarygame.GameEngine.Factories.BodyFactory;
 
 public class Player extends Sprite {
@@ -21,7 +23,8 @@ public class Player extends Sprite {
     public Player(B2Model parent) {
         super((Texture)parent.getAss().manager.get(parent.getAss().whiteShip));
         this.parent = parent;
-        texture = parent.getAss().manager.get(parent.getAss().player);
+        texture = setShip();
+        this.setTexture(texture);
         BodyFactory bFact = BodyFactory.getInstance(parent.world);
         b2body = bFact.makePlayerBody(0,-12,2.5f,6f,
                 BodyFactory.FIXTURE_TYPE.STEEL, BodyDef.BodyType.DynamicBody, true, this);
@@ -29,6 +32,14 @@ public class Player extends Sprite {
         setBounds(b2body.getPosition().x, b2body.getPosition().y, 2.5f, 6);
         setPosition(b2body.getPosition().x, b2body.getPosition().y);
 
+    }
+
+    private Texture setShip() {
+        Gdx.app.log("Ship Pref", DataController.getInstance().getShipPref());
+        if (DataController.getInstance().getShipPref().equals("whiteShip")) {
+            return (Texture)parent.getAss().manager.get(parent.getAss().whiteShip);
+        }
+        return (Texture)parent.getAss().manager.get(parent.getAss().redShip);
     }
 
     public void bounceDown() {
