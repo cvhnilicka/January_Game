@@ -15,6 +15,7 @@ import com.cormucopiastudios.januarygame.GameEngine.Loader.B2AssetManager;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Asteroid;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Player;
 import com.cormucopiastudios.januarygame.GameEngine.Models.Wall;
+import com.cormucopiastudios.januarygame.JanuaryGame;
 
 import java.util.Random;
 
@@ -59,6 +60,7 @@ public class B2Model {
 
     public void saveScore() {
         DataController.getInstance().saveScore(this.score);
+        this.parent.setParentScreen(JanuaryGame.GAMEOVER);
     }
 
     public B2AssetManager getAss() {

@@ -32,6 +32,10 @@ public class BodyFactory {
     public static BodyFactory getInstance(World world) {
         if (thisInstance == null)
             thisInstance = new BodyFactory(world);
+        else if (thisInstance.world.equals(world))
+            return thisInstance;
+        else
+            return thisInstance = new BodyFactory(world);
         return thisInstance;
     }
 
@@ -223,7 +227,12 @@ public class BodyFactory {
     }
 
 
+    public void resetInstance() {
+        this.world.dispose();
+    }
 
-
+    public void newWorld(World world) {
+        thisInstance = new BodyFactory(world);
+    }
 
 }

@@ -30,11 +30,8 @@ public class B2ContactListener implements ContactListener {
                     .PLAYER_BIT | GameClass.ASTEROID_BIT:
                 // here i basically want to set a rebound force and apply it to the player
 
-
-
                 // also want to save data
                 this.parent.saveScore();
-            Gdx.app.exit();
 
 
         }
