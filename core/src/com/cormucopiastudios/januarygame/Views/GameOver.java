@@ -36,6 +36,11 @@ public class GameOver implements Screen {
         Gdx.input.setInputProcessor(stage);
         Label gameOver = new Label("Game Over", skin);
         Table table = new Table();
+        table.setFillParent(true);
+        table.add(gameOver);
+        table.row();
+
+        // Leaderboard Button
         ImageButton leaderboard = new ImageButton(new TextureRegionDrawable(
                 new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.leaderboard))));
         table.add(leaderboard).height(Value.percentHeight(0.25f, table)).fillX().uniform();
@@ -48,27 +53,35 @@ public class GameOver implements Screen {
             }
         });
 
+        // Leaderboard Button
+        ImageButton exit = new ImageButton(new TextureRegionDrawable(
+                new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.exit))) );
+        table.add(exit).height(Value.percentHeight(0.25f, table)).fillX().uniform();
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
 
         // Return Button
-//        ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
-//                new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
-//        returnButton.setDebug(true);
-//        returnButton.setWidth(stage.getWidth()/6);
-//        returnButton.setHeight(stage.getHeight()/6);
-//        returnButton.top();
-//        returnButton.setBounds(0,stage.getHeight()-returnButton.getHeight(),returnButton.getWidth(),returnButton.getHeight());
-//        returnButton.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                parent.changeScreen(JanuaryGame.MENU);
-//            }
-//        });
-//        stage.addActor(returnButton);
+        ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
+                new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
+        returnButton.setDebug(true);
+        returnButton.setWidth(stage.getWidth()/6);
+        returnButton.setHeight(stage.getHeight()/6);
+        returnButton.top();
+        returnButton.setBounds(0,stage.getHeight()-returnButton.getHeight(),returnButton.getWidth(),returnButton.getHeight());
+        returnButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(JanuaryGame.MENU);
+            }
+        });
+        stage.addActor(returnButton);
 
 
-        table.setFillParent(true);
-        table.add(gameOver);
-        table.row();
 
         stage.addActor(table);
 
