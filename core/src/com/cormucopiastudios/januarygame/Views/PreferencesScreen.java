@@ -27,6 +27,7 @@ public class PreferencesScreen implements Screen {
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
+    private Image backgroundImage;
 
     public PreferencesScreen(JanuaryGame parent) {
         this.parent = parent;
@@ -40,6 +41,7 @@ public class PreferencesScreen implements Screen {
     public void show() {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
+        backgroundSetUp();
 
 
 
@@ -76,6 +78,12 @@ public class PreferencesScreen implements Screen {
 
         stage.addActor(table);
 
+    }
+
+    private void backgroundSetUp() {
+        backgroundImage = new Image((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
+        backgroundImage.setBounds(0,0,stage.getWidth(),stage.getHeight());
+        stage.addActor(backgroundImage);
     }
 
     private void setUpShips(Table table) {

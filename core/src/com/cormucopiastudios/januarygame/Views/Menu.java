@@ -25,7 +25,6 @@ public class Menu implements Screen {
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
-    private Sprite background;
     private Image backgroundImage;
 
     public Menu(JanuaryGame parent) {
@@ -99,9 +98,6 @@ public class Menu implements Screen {
     }
 
     private void backgroundSetUp() {
-//        background = new Sprite((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
-//        background.setBounds(0,0,stage.getWidth(), stage.getHeight());
-
         backgroundImage = new Image((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
         backgroundImage.setBounds(0,0,stage.getWidth(),stage.getHeight());
         stage.addActor(backgroundImage);

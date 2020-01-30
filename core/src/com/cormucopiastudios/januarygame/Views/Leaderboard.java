@@ -26,6 +26,7 @@ public class Leaderboard implements Screen {
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
+    private Image backgroundImage;
 
     public Leaderboard(JanuaryGame parent) {
         this.parent = parent;
@@ -37,6 +38,7 @@ public class Leaderboard implements Screen {
     public void show() {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
+        backgroundSetUp();
         ImageButton returnButton = new ImageButton(new TextureRegionDrawable(
                 new TextureRegion((Texture)parent.assMan.manager.get(parent.assMan.returnButton))));
         returnButton.setDebug(true);
@@ -68,6 +70,12 @@ public class Leaderboard implements Screen {
 
         addEntries(table);
 
+    }
+
+    private void backgroundSetUp() {
+        backgroundImage = new Image((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
+        backgroundImage.setBounds(0,0,stage.getWidth(),stage.getHeight());
+        stage.addActor(backgroundImage);
     }
 
     private void addEntries(Table table) {

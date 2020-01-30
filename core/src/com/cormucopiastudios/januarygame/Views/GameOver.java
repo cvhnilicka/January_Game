@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,6 +23,8 @@ public class GameOver implements Screen {
     private JanuaryGame parent;
     private Stage stage;
     private Skin skin;
+    private Image backgroundImage;
+
 
 
     public GameOver(JanuaryGame parent) {
@@ -34,6 +37,7 @@ public class GameOver implements Screen {
     public void show() {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
+        backgroundSetUp();
         Label gameOver = new Label("Game Over", skin);
         Table table = new Table();
         table.setFillParent(true);
@@ -85,6 +89,12 @@ public class GameOver implements Screen {
 
         stage.addActor(table);
 
+    }
+
+    private void backgroundSetUp() {
+        backgroundImage = new Image((Texture)parent.assMan.manager.get(parent.assMan.plain_background));
+        backgroundImage.setBounds(0,0,stage.getWidth(),stage.getHeight());
+        stage.addActor(backgroundImage);
     }
 
     @Override
