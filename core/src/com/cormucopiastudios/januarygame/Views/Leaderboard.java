@@ -9,7 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -50,11 +52,20 @@ public class Leaderboard implements Screen {
 
         stage.addActor(returnButton);
 
+
+
+
         // create table menu
         Table table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
-        stage.addActor(table);
+        ScrollPane scrollPane = new ScrollPane(table);
+
+        Table addTable = new Table();
+        addTable.setFillParent(true);
+        addTable.setDebug(true);
+        addTable.add(scrollPane).fill().expand();
+        stage.addActor(addTable);
 
 
 
@@ -63,6 +74,7 @@ public class Leaderboard implements Screen {
         returnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.log("Leaderboard", "return");
                 parent.changeScreen(JanuaryGame.MENU);
             }
         });
@@ -82,20 +94,11 @@ public class Leaderboard implements Screen {
 
         // comment/uncomment for stylaized
         for(String key: DataController.getInstance().getLeaderBoard().get().keySet()){
-//            Gdx.app.log("Add Entries", key);
-            TextButton n = new TextButton(key + "  ::  " + DataController.getInstance().getLeaderBoard().getString(key), skin);
+            Label n = new Label(key + "  ::  " + DataController.getInstance().getLeaderBoard().getString(key), skin);
             table.add(n);
             table.row();
         }
         // Need to update this to have a stylized table entry
-
-//        for(String key: DataController.getInstance().getLeaderBoard().get().keySet()){
-//            Table rowTable = new Table();
-//            createRow(rowTable,
-//                    DataController.getInstance().getLeaderBoard().getString(key).split("(?!^)"));
-//            table.add(rowTable);
-//            table.row().height(Value.percentHeight(.02f,table));
-//        }
 
 
     }
